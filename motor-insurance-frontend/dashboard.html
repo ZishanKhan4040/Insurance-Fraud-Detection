@@ -1,0 +1,1106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claimant Dashboard | MotorSure</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            display: block;
+            padding: 0;
+            background: #f4f7fb;
+        }
+
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            background: #102b46;
+            color: white;
+            padding: 26px 18px;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 42px;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .sidebar-brand .brand-mark {
+            width: 36px;
+            height: 36px;
+        }
+
+        .sidebar-label {
+            margin: 24px 12px 12px;
+            color: #91a8bf;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            margin-bottom: 6px;
+            border-radius: 9px;
+            color: #c6d4e3;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: #21496c;
+            color: white;
+        }
+
+        .sidebar-link.active {
+            box-shadow: inset 3px 0 #4e8bff;
+        }
+
+        .sidebar-bottom {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #29445e;
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            margin: 0;
+            color: #18283b;
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .page-subtitle {
+            margin: 7px 0 0;
+            color: #748195;
+            font-size: 13px;
+        }
+
+        .user-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: white;
+        }
+
+        .user-avatar {
+            display: grid;
+            place-items: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #e4edff;
+            color: #246bfd;
+            font-weight: 800;
+        }
+
+        .user-name {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .user-role {
+            color: #748195;
+            font-size: 10px;
+        }
+
+        .primary-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 16px;
+            border: 0;
+            border-radius: 9px;
+            background: #246bfd;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .primary-action:hover {
+            background: #1559e8;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin: 28px 0;
+        }
+
+        .stat-card {
+            padding: 22px;
+            border: 1px solid #e8edf4;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(25, 47, 76, 0.025);
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-label {
+            color: #748195;
+            font-size: 12px;
+        }
+
+        .stat-icon {
+            display: grid;
+            place-items: center;
+            width: 39px;
+            height: 39px;
+            border-radius: 11px;
+            font-size: 17px;
+        }
+
+        .icon-blue {
+            background: #e9f0ff;
+            color: #246bfd;
+        }
+
+        .icon-orange {
+            background: #fff1df;
+            color: #d98517;
+        }
+
+        .icon-green {
+            background: #e3f8ed;
+            color: #1c9b60;
+        }
+
+        .icon-red {
+            background: #ffebeb;
+            color: #dc4545;
+        }
+
+        .stat-number {
+            margin: 17px 0 5px;
+            color: #18283b;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .stat-caption {
+            color: #8793a4;
+            font-size: 11px;
+        }
+
+        .content-card {
+            margin-bottom: 24px;
+            overflow: hidden;
+            border: 1px solid #e8edf4;
+            border-radius: 15px;
+            background: white;
+        }
+
+        .card-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 21px 23px;
+            border-bottom: 1px solid #edf1f6;
+        }
+
+        .card-heading h2 {
+            margin: 0;
+            color: #18283b;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .card-heading p {
+            margin: 5px 0 0;
+            color: #8793a4;
+            font-size: 11px;
+        }
+
+        .view-all {
+            color: #246bfd;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead th {
+            padding: 15px 22px;
+            border-bottom: 1px solid #edf1f6;
+            background: #fbfcfe;
+            color: #8490a1;
+            font-size: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            padding: 17px 22px;
+            color: #46566b;
+            font-size: 12px;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .claim-id {
+            color: #246bfd !important;
+            font-weight: 700;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .status-pending {
+            background: #fff2dc;
+            color: #b87510;
+        }
+
+        .status-approved {
+            background: #e2f8eb;
+            color: #16824e;
+        }
+
+        .status-review {
+            background: #e7efff;
+            color: #315fc2;
+        }
+
+        .status-rejected {
+            background: #ffebeb;
+            color: #c43d3d;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 22px;
+        }
+
+        .info-content {
+            padding: 22px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #edf1f6;
+            font-size: 12px;
+        }
+
+        .info-row:last-child {
+            border-bottom: 0;
+        }
+
+        .info-label {
+            color: #748195;
+        }
+
+        .info-value {
+            color: #24364b;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .notice-box {
+            display: flex;
+            gap: 13px;
+            padding: 16px;
+            border-radius: 11px;
+            background: #edf4ff;
+            color: #244c8c;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .notice-box i {
+            font-size: 20px;
+        }
+
+        .mobile-menu {
+            display: none;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            padding: 7px 11px;
+        }
+
+        @media (max-width: 1100px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .dashboard-layout {
+                display: block;
+            }
+
+            .sidebar {
+                display: none;
+                width: 100%;
+            }
+
+            .main-content {
+                padding: 18px 13px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+
+            .mobile-menu {
+                display: inline-block;
+            }
+
+            .stats-grid {
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-number {
+                font-size: 25px;
+            }
+
+            .user-chip {
+                display: none;
+            }
+
+            .card-heading {
+                padding: 17px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-mark">M</div>
+            <span>MotorSure</span>
+        </div>
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <a href="dashboard.html" class="sidebar-link active">
+            <i class="bi bi-grid-1x2"></i> Dashboard
+        </a>
+
+        <a href="my-policies.html" class="sidebar-link">
+            <i class="bi bi-shield-check"></i> My Policies
+        </a>
+
+        <a href="submit-file.html" class="sidebar-link">
+            <i class="bi bi-file-earmark-plus"></i> Submit Claim
+        </a>
+
+        <a href="my-claims.html" class="sidebar-link">
+            <i class="bi bi-folder2-open"></i> My Claims
+        </a>
+
+        <div class="sidebar-label">ACCOUNT</div>
+
+        <a href="my-profile.html" class="sidebar-link">
+            <i class="bi bi-person-circle"></i> My Profile
+        </a>
+
+        <div class="sidebar-bottom">
+            <a href="index.html" class="sidebar-link" id="logout-link">
+                <i class="bi bi-box-arrow-left"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+            <div>
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <button class="mobile-menu"
+                            id="mobile-menu-button"
+                            type="button"
+                            aria-label="Toggle navigation">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <span class="eyebrow dark-eyebrow">
+                        CLAIMANT WORKSPACE
+                    </span>
+                </div>
+
+                <h1 class="page-title">My Dashboard</h1>
+                <p class="page-subtitle">
+                    Welcome back! Here's an overview of your motor insurance claims.
+                </p>
+            </div>
+
+            <div class="user-chip">
+                <div class="user-avatar" id="user-avatar">C</div>
+                <div>
+                    <div class="user-name" id="user-name">Claimant</div>
+                    <div class="user-role">Claimant Account</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE ACTION -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h2 class="h6 fw-bold mb-1">Claims overview</h2>
+                <p class="text-secondary small mb-0">Your account at a glance</p>
+            </div>
+
+            <a href="submit-file.html" class="primary-action">
+                <i class="bi bi-plus-lg"></i> Submit New Claim
+            </a>
+        </div>
+
+        <!-- SUMMARY CARDS -->
+        <section class="stats-grid">
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-label">Total Claims</span>
+                    <span class="stat-icon icon-blue">
+                        <i class="bi bi-files"></i>
+                    </span>
+                </div>
+                <div class="stat-number" id="totalClaims">0</div>
+                <div class="stat-caption">All claims submitted</div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-label">Pending Claims</span>
+                    <span class="stat-icon icon-orange">
+                        <i class="bi bi-hourglass-split"></i>
+                    </span>
+                </div>
+                <div class="stat-number" id="pendingClaims">0</div>
+                <div class="stat-caption">Awaiting a decision</div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-label">High Risk Claims</span>
+                    <span class="stat-icon icon-red">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </span>
+                </div>
+                <div class="stat-number" id="highRiskClaims">0</div>
+                <div class="stat-caption">Claims flagged as high risk</div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-label">Pending Investigations</span>
+                    <span class="stat-icon icon-green">
+                        <i class="bi bi-search"></i>
+                    </span>
+                </div>
+                <div class="stat-number" id="pendingInvestigations">0</div>
+                <div class="stat-caption">Investigations awaiting a decision</div>
+            </article>
+
+        </section>
+
+        <!-- RECENT CLAIMS -->
+        <section class="content-card" id="claims">
+            <div class="card-heading">
+                <div>
+                    <h2>Recent Claims</h2>
+                    <p>Review the latest activity on your account.</p>
+                </div>
+                <a href="my-claims.html" class="view-all">View all →</a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>CLAIM ID</th>
+                        <th>CLAIM TYPE</th>
+                        <th>CLAIM AMOUNT</th>
+                        <th>SUBMITTED ON</th>
+                        <th>STATUS</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="recent-claims-body">
+                    <tr>
+                        <td colspan="5" class="text-center text-secondary">
+                            Loading recent claims...
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- LOWER DASHBOARD CARDS -->
+        <section class="dashboard-grid">
+
+            <!-- POLICY INFORMATION -->
+            <article class="content-card" id="policies">
+                <div class="card-heading">
+                    <div>
+                        <h2>My Policy</h2>
+                        <p>Your policy information.</p>
+                    </div>
+                    <i class="bi bi-shield-check text-primary fs-5"></i>
+                </div>
+
+                <div class="info-content" id="policy-info-content">
+
+                    <div class="info-row">
+                        <span class="info-label">Policy Number</span>
+                        <span class="info-value" id="policy-number">Loading...</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Vehicle Type</span>
+                        <span class="info-value" id="policy-vehicle-type">Loading...</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Policy Type</span>
+                        <span class="info-value" id="policy-type">Loading...</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Policy Status</span>
+                        <span class="info-value" id="policy-status">Loading...</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Start Date</span>
+                        <span class="info-value" id="policy-start-date">Loading...</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Valid Until</span>
+                        <span class="info-value" id="policy-end-date">Loading...</span>
+                    </div>
+
+                    <p id="policy-message"
+                       class="text-secondary small mt-2 mb-0"
+                       aria-live="polite"></p>
+                </div>
+            </article>
+
+            <!-- CLAIM INFORMATION PANEL -->
+            <article class="content-card" id="submit-file">
+                <div class="card-heading">
+                    <div>
+                        <h2>Need to file a claim?</h2>
+                        <p>Start your claim submission process.</p>
+                    </div>
+                </div>
+
+                <div class="info-content">
+                    <div class="notice-box">
+                        <i class="bi bi-info-circle"></i>
+                        <div>
+                            <strong>Before you begin</strong>
+                            <div class="mt-1">
+                                Keep your policy details, incident date,
+                                and estimated claim amount ready.
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="submit-file.html"
+                       class="primary-action w-100 mt-3"
+                       id="start-claim-button">
+                        <i class="bi bi-plus-lg"></i> Start a Claim
+                    </a>
+
+                    <p class="text-secondary mt-3 mb-0" style="font-size: 10px;">
+                        Claim submission form integration is the next step.
+                    </p>
+                </div>
+            </article>
+
+        </section>
+
+        <footer class="text-center text-secondary py-3" style="font-size: 11px;">
+            © 2026 MotorSure · Motor Insurance Claim Portal
+        </footer>
+
+    </main>
+</div>
+
+<script>
+    "use strict";
+
+    const TOKEN_KEY = "motorsure_token";
+    const API_BASE = "http://localhost:8080";
+
+    const menuButton = document.getElementById("mobile-menu-button");
+    const sidebar = document.querySelector(".sidebar");
+
+    // Check login session
+    function getToken() {
+        return localStorage.getItem(TOKEN_KEY);
+    }
+
+    // Redirect to login when there is no token
+    if (!getToken()) {
+        window.location.href = "index.html";
+    }
+
+    // Mobile menu
+    menuButton.addEventListener("click", function () {
+        const isVisible = sidebar.style.display === "block";
+
+        sidebar.style.display = isVisible ? "none" : "block";
+        sidebar.style.width = isVisible ? "" : "100%";
+    });
+
+    // Logout
+    document.getElementById("logout-link")
+        .addEventListener("click", function (event) {
+            event.preventDefault();
+
+            if (confirm("Do you want to log out?")) {
+                localStorage.removeItem(TOKEN_KEY);
+                window.location.href = "index.html";
+            }
+        });
+
+    // Claim submission navigation
+document.getElementById("start-claim-button")
+    .addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = "submit-file.html";
+    });
+
+    // Format date without timezone-related date changes
+    function formatDate(dateValue) {
+        if (!dateValue) {
+            return "—";
+        }
+
+        const parts = dateValue.split("-");
+
+        if (parts.length !== 3) {
+            return dateValue;
+        }
+
+        return new Date(
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2])
+        ).toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
+    }
+
+    // Load dashboard summary
+    async function loadDashboardSummary() {
+        const token = getToken();
+
+        if (!token) {
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                `${API_BASE}/api/dashboard/summary`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+            if (response.status === 401 || response.status === 403) {
+                alert("Your session is invalid or you do not have permission to view this dashboard.");
+                localStorage.removeItem(TOKEN_KEY);
+                window.location.href = "index.html";
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error("HTTP error: " + response.status);
+            }
+
+            const data = await response.json();
+
+            document.getElementById("totalClaims").textContent =
+                data.totalClaims ?? 0;
+
+            document.getElementById("pendingClaims").textContent =
+                data.pendingClaims ?? 0;
+
+            document.getElementById("highRiskClaims").textContent =
+                data.highRiskClaims ?? 0;
+
+            document.getElementById("pendingInvestigations").textContent =
+                data.pendingInvestigations ?? 0;
+
+            console.log("Dashboard summary loaded:", data);
+
+        } catch (error) {
+            console.error("Failed to load dashboard summary:", error);
+        }
+    }
+
+    // Load recent claims for the logged-in claimant
+    async function loadRecentClaims() {
+        const token = getToken();
+        const tableBody = document.getElementById("recent-claims-body");
+
+        if (!token) {
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                `${API_BASE}/api/claims/my`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+            if (response.status === 401 || response.status === 403) {
+                throw new Error("Session expired or access denied.");
+            }
+
+            if (!response.ok) {
+                throw new Error("HTTP error: " + response.status);
+            }
+
+            const claims = await response.json();
+            tableBody.replaceChildren();
+
+            if (!Array.isArray(claims) || claims.length === 0) {
+                const row = document.createElement("tr");
+                const cell = document.createElement("td");
+
+                cell.colSpan = 5;
+                cell.className = "text-center text-secondary";
+                cell.textContent = "No claims found.";
+
+                row.appendChild(cell);
+                tableBody.appendChild(row);
+                return;
+            }
+
+            // Sort newest claims first
+            claims.sort((a, b) => {
+                return new Date(b.submittedAt || 0) -
+                       new Date(a.submittedAt || 0);
+            });
+
+            claims.slice(0, 5).forEach(claim => {
+                const row = document.createElement("tr");
+
+                const claimId = document.createElement("td");
+                claimId.className = "claim-id";
+                claimId.textContent = "#CLM-" + claim.claimId;
+
+                const claimType = document.createElement("td");
+                claimType.textContent =
+                    (claim.claimType ?? "UNKNOWN").replaceAll("_", " ");
+
+                const amount = document.createElement("td");
+                amount.textContent = Number(claim.claimAmount ?? 0)
+                    .toLocaleString("en-IN", {
+                        style: "currency",
+                        currency: "INR",
+                        maximumFractionDigits: 2
+                    });
+
+                const submittedDate = document.createElement("td");
+                submittedDate.textContent = claim.submittedAt
+                    ? new Date(claim.submittedAt).toLocaleDateString("en-IN", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    })
+                    : "N/A";
+
+                const statusCell = document.createElement("td");
+                const statusBadge = document.createElement("span");
+                statusBadge.classList.add("status");
+
+                const status = claim.status || "UNKNOWN";
+
+                if (status === "APPROVED") {
+                    statusBadge.classList.add("status-approved");
+                } else if (status === "REJECTED") {
+                    statusBadge.classList.add("status-rejected");
+                } else if (
+                    status === "UNDER_REVIEW" ||
+                    status === "MORE_INFO_REQUIRED"
+                ) {
+                    statusBadge.classList.add("status-review");
+                } else {
+                    statusBadge.classList.add("status-pending");
+                }
+
+                statusBadge.textContent = status.replaceAll("_", " ");
+                statusCell.appendChild(statusBadge);
+
+                row.append(
+                    claimId,
+                    claimType,
+                    amount,
+                    submittedDate,
+                    statusCell
+                );
+
+                tableBody.appendChild(row);
+            });
+
+            console.log("Recent claims loaded:", claims);
+
+        } catch (error) {
+            console.error("Failed to load recent claims:", error);
+
+            tableBody.replaceChildren();
+
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+
+            cell.colSpan = 5;
+            cell.className = "text-center text-danger";
+            cell.textContent = "Unable to load recent claims.";
+
+            row.appendChild(cell);
+            tableBody.appendChild(row);
+        }
+    }
+
+    // Load policies for the logged-in claimant
+    async function loadMyPolicies() {
+        const token = getToken();
+
+        const policyNumber = document.getElementById("policy-number");
+        const vehicleType = document.getElementById("policy-vehicle-type");
+        const policyType = document.getElementById("policy-type");
+        const policyStatus = document.getElementById("policy-status");
+        const startDate = document.getElementById("policy-start-date");
+        const endDate = document.getElementById("policy-end-date");
+        const policyMessage = document.getElementById("policy-message");
+
+        if (!token) {
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                `${API_BASE}/api/policies/my`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+            if (response.status === 401 || response.status === 403) {
+                throw new Error("Session expired or access denied.");
+            }
+
+            if (!response.ok) {
+                throw new Error("HTTP error: " + response.status);
+            }
+
+            const policies = await response.json();
+
+            if (!Array.isArray(policies) || policies.length === 0) {
+                policyNumber.textContent = "No policy found";
+                vehicleType.textContent = "—";
+                policyType.textContent = "—";
+                policyStatus.textContent = "—";
+                startDate.textContent = "—";
+                endDate.textContent = "—";
+                policyMessage.textContent =
+                    "No insurance policy is currently associated with your account.";
+                return;
+            }
+
+            // Dashboard preview: show the first policy.
+            // The My Policies page can display all policies.
+            const policy = policies[0];
+
+            policyNumber.textContent = policy.policyNumber ?? "—";
+
+            vehicleType.textContent =
+                (policy.vehicleType ?? "—").replaceAll("_", " ");
+
+            policyType.textContent =
+                (policy.policyType ?? "—").replaceAll("_", " ");
+
+            policyStatus.textContent = policy.status ?? "—";
+            startDate.textContent = formatDate(policy.startDate);
+            endDate.textContent = formatDate(policy.endDate);
+
+            policyMessage.textContent = policies.length > 1
+                ? `Showing 1 of ${policies.length} policies. Open My Policies to view the others.`
+                : "";
+
+            console.log("My policies loaded:", policies);
+
+        } catch (error) {
+            console.error("Failed to load policies:", error);
+
+            policyNumber.textContent = "Unable to load";
+            vehicleType.textContent = "—";
+            policyType.textContent = "—";
+            policyStatus.textContent = "—";
+            startDate.textContent = "—";
+            endDate.textContent = "—";
+
+            policyMessage.textContent =
+                "Could not load policy details. Please refresh the page.";
+        }
+    }
+    
+async function loadMyProfile() {
+    const token = localStorage.getItem("motorsure_token");
+
+    if (!token) {
+        window.location.href = "index.html";
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            "http://localhost:8080/api/users/me",
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem("motorsure_token");
+            window.location.href = "index.html";
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error("HTTP error: " + response.status);
+        }
+
+        const profile = await response.json();
+
+        const name = profile.fullName || "Claimant";
+
+        document.getElementById("user-name").textContent = name;
+
+        document.getElementById("user-avatar").textContent =
+            name.trim().charAt(0).toUpperCase() || "C";
+
+        console.log("My profile loaded:", profile);
+
+    } catch (error) {
+        console.error("Failed to load profile:", error);
+    }
+}
+
+
+    // Load dashboard data when the page opens
+   loadDashboardSummary();
+loadRecentClaims();
+loadMyPolicies();
+loadMyProfile();
+</script>
+
+</body>
+</html>

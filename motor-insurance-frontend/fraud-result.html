@@ -1,0 +1,875 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fraud Risk Analysis | MotorSure</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+:root {
+    --navy: #14213d;
+    --blue: #3157d5;
+    --bg: #f4f7fb;
+    --muted: #738096;
+    --border: #e5eaf2;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: var(--bg);
+    color: #26344a;
+    font-family: Arial, sans-serif;
+}
+.topbar {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+}
+.brand {
+    color: var(--navy);
+    font-size: 23px;
+    font-weight: 800;
+    text-decoration: none;
+}
+.brand i { color: var(--blue); }
+.page-container {
+    max-width: 1200px;
+    margin: 32px auto;
+    padding: 0 20px;
+}
+.page-title {
+    color: var(--navy);
+    font-weight: 800;
+}
+.subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+.panel {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 23px;
+    height: 100%;
+    box-shadow: 0 5px 20px rgba(25,43,75,.035);
+}
+.panel-title {
+    color: var(--navy);
+    font-size: 17px;
+    font-weight: 800;
+}
+.small-label {
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    font-weight: 700;
+}
+.risk-panel {
+    background: linear-gradient(135deg,#172747,#263f70);
+    color: white;
+    border: none;
+}
+.risk-panel .small-label { color: #cbd6ee; }
+.risk-score {
+    font-size: 66px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+.score-out-of {
+    font-size: 20px;
+    color: #cbd6ee;
+}
+.risk-badge {
+    display: inline-block;
+    border-radius: 25px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 800;
+    background: #edf0f5;
+    color: #526078;
+}
+.risk-low { background: #dcf5e9; color: #167348; }
+.risk-medium { background: #fff0d4; color: #925b00; }
+.risk-high { background: #ffe1e3; color: #b52b35; }
+.score-track {
+    width: 100%;
+    height: 9px;
+    background: #e9edf5;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 12px;
+}
+.score-fill {
+    width: 0;
+    height: 100%;
+    background: var(--blue);
+    border-radius: 20px;
+    transition: width .6s ease;
+}
+.risk-panel .score-track { background: #ffffff33; }
+.risk-panel .score-fill { background: #86a9ff; }
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+.detail-row:last-child { border-bottom: 0; }
+.detail-label { color: var(--muted); }
+.detail-value {
+    color: var(--navy);
+    font-weight: 700;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+.rule-item {
+    padding: 21px 0;
+    border-bottom: 1px solid var(--border);
+}
+.rule-item:last-child { border-bottom: 0; }
+.rule-heading { color: var(--navy); font-weight: 800; }
+.rule-score {
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 800;
+}
+.observed-box {
+    background: #f5f7fb;
+    border-radius: 8px;
+    padding: 11px 13px;
+    margin-top: 12px;
+    font-size: 13px;
+}
+.rule-reason {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+    margin-top: 12px;
+}
+.metric-card {
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+.metric-icon {
+    display: inline-flex;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    background: #edf1ff;
+    color: var(--blue);
+    font-size: 18px;
+}
+.metric-value {
+    color: var(--navy);
+    font-size: 25px;
+    font-weight: 800;
+    margin-top: 9px;
+}
+.notice-box {
+    border: 1px solid #d7e1ff;
+    background: #eef3ff;
+    border-radius: 11px;
+    padding: 15px;
+    color: #31518f;
+    font-size: 13px;
+    line-height: 1.7;
+}
+.state-box {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    color: var(--muted);
+}
+.state-box i { font-size: 32px; }
+.form-select {
+    min-height: 44px;
+    border-radius: 8px;
+}
+.btn-primary-custom,.btn-secondary-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn-primary-custom {
+    color: white;
+    background: var(--blue);
+    border: 0;
+}
+.btn-primary-custom:hover { color: white; background: #2445b7; }
+.btn-secondary-custom {
+    color: #34425b;
+    background: white;
+    border: 1px solid var(--border);
+}
+.btn-secondary-custom:hover { background: #f4f6fa; }
+footer {
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+    padding: 24px 12px;
+}
+@media(max-width:767px) {
+    .page-container { margin-top: 22px; padding: 0 13px; }
+    .panel { padding: 18px; }
+    .risk-score { font-size: 54px; }
+}
+@media print {
+    .no-print { display: none !important; }
+    body { background: white; }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="topbar">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <a href="dashboard.html" class="brand">
+            <i class="bi bi-shield-check"></i> MotorSure
+        </a>
+        <div class="d-flex gap-2 flex-wrap no-print">
+            <a href="dashboard.html" class="btn-secondary-custom">
+                <i class="bi bi-grid"></i> Dashboard
+            </a>
+            <a href="my-claims.html" class="btn-secondary-custom">
+                <i class="bi bi-files"></i> My Claims
+            </a>
+            <a href="submit-file.html" class="btn-primary-custom">
+                <i class="bi bi-plus-lg"></i> New Claim
+            </a>
+        </div>
+    </div>
+</nav>
+
+<main class="page-container">
+
+    <div class="mb-4">
+        <div class="small-label mb-2">Claim Assessment</div>
+        <h1 class="page-title h2 mb-2">Fraud Risk Analysis</h1>
+        <p class="subtitle">
+            Actual fraud risk evaluation retrieved from the MotorSure backend.
+        </p>
+    </div>
+
+    <section class="panel mb-4 no-print">
+        <div class="row align-items-end g-3">
+            <div class="col-md-8">
+                <label for="claimSelect" class="form-label fw-bold">
+                    Select Your Claim
+                </label>
+                <select id="claimSelect" class="form-select" disabled>
+                    <option>Loading claims...</option>
+                </select>
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="button" class="btn-primary-custom flex-grow-1"
+                        id="loadButton" disabled>
+                    <i class="bi bi-search"></i> View Analysis
+                </button>
+                <button type="button" class="btn-secondary-custom"
+                        id="refreshButton" title="Refresh">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div id="errorMessage" class="alert alert-danger" hidden></div>
+
+    <div id="loadingState" class="state-box mb-4" hidden>
+        <div class="spinner-border text-primary mb-3"></div>
+        <div class="fw-bold">Loading fraud evaluation...</div>
+        <div class="subtitle mt-1">Please wait.</div>
+    </div>
+
+    <div id="emptyState" class="state-box mb-4" hidden>
+        <i class="bi bi-clipboard2-check"></i>
+        <h5 class="mt-3 fw-bold" id="emptyTitle">No evaluation available</h5>
+        <p class="subtitle mb-0" id="emptyDescription"></p>
+    </div>
+
+    <div id="analysisContent" hidden>
+
+        <div class="row g-4 mb-4">
+
+            <div class="col-lg-7">
+                <section class="panel risk-panel">
+                    <div class="small-label mb-3">
+                        Overall Fraud Risk Score
+                    </div>
+
+                    <div class="d-flex align-items-baseline gap-2">
+                        <span class="risk-score" id="totalScore">0</span>
+                        <span class="score-out-of">/ 100</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-3">
+                        <span class="risk-badge" id="riskBadge">NOT EVALUATED</span>
+                        <span style="color:#d6e0f5;font-size:13px;">
+                            Evaluation ID: <strong id="evaluationId">—</strong>
+                        </span>
+                    </div>
+
+                    <div class="score-track mt-4">
+                        <div class="score-fill" id="overallScoreBar"></div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-2"
+                         style="font-size:11px;color:#cbd6ee;">
+                        <span>0 — Low</span>
+                        <span>30 — Medium</span>
+                        <span>60 — High</span>
+                        <span>100</span>
+                    </div>
+
+                    <hr style="border-color:#ffffff33;margin:24px 0;">
+
+                    <p class="mb-0" id="riskDescription"
+                       style="color:#e1e8f6;font-size:14px;line-height:1.7;">
+                    </p>
+                </section>
+            </div>
+
+            <div class="col-lg-5">
+                <section class="panel">
+                    <div class="panel-title mb-1">Claim Information</div>
+                    <p class="subtitle mb-3">Details of the selected claim.</p>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Claim ID</span>
+                        <span class="detail-value" id="claimId">—</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Policy ID</span>
+                        <span class="detail-value" id="policyId">—</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Claim Type</span>
+                        <span class="detail-value" id="claimType">—</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Claim Amount</span>
+                        <span class="detail-value" id="claimAmount">—</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Incident Date</span>
+                        <span class="detail-value" id="incidentDate">—</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Claim Status</span>
+                        <span class="detail-value" id="claimStatus">—</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Evaluated At</span>
+                        <span class="detail-value" id="evaluatedAt">—</span>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+
+            <div class="col-lg-8">
+                <section class="panel">
+                    <div class="d-flex justify-content-between flex-wrap gap-2 mb-3">
+                        <div>
+                            <div class="panel-title">Rule-by-Rule Breakdown</div>
+                            <p class="subtitle mb-0">
+                                Results returned by the backend fraud rules.
+                            </p>
+                        </div>
+                        <span class="badge text-bg-primary" id="ruleCount">
+                            0 Rules Evaluated
+                        </span>
+                    </div>
+
+                    <div id="rulesContainer"></div>
+
+                    <div class="notice-box mt-4">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        A high risk score is not proof of fraud. It is a
+                        screening indicator for manual verification.
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-4">
+                <section class="panel">
+                    <div class="panel-title">Score Summary</div>
+                    <p class="subtitle">Actual points awarded by each rule.</p>
+
+                    <div class="metric-card">
+                        <span class="metric-icon"><i class="bi bi-arrow-repeat"></i></span>
+                        <div class="metric-value" id="frequencyMetric">0 pts</div>
+                        <div class="subtitle">Frequency Anomaly · Max 30</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <span class="metric-icon"><i class="bi bi-calendar-event"></i></span>
+                        <div class="metric-value" id="temporalMetric">0 pts</div>
+                        <div class="subtitle">Temporal Anomaly · Max 25</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <span class="metric-icon"><i class="bi bi-currency-rupee"></i></span>
+                        <div class="metric-value" id="amountMetric">0 pts</div>
+                        <div class="subtitle">Amount Outlier · Max 45</div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                        <strong>Total Score</strong>
+                        <strong style="color:var(--blue);font-size:22px;"
+                                id="summaryTotal">0 / 100</strong>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 no-print">
+        <a href="my-claims.html" class="btn-secondary-custom">
+            <i class="bi bi-arrow-left"></i> Back to My Claims
+        </a>
+       
+    </div>
+
+</main>
+
+
+
+<script>
+"use strict";
+
+// API configuration
+const API_BASE_URL = "http://localhost:8080/api";
+const TOKEN_KEY = "motorsure_token";
+
+let claims = [];
+
+const claimSelect = document.getElementById("claimSelect");
+const loadButton = document.getElementById("loadButton");
+const loadingState = document.getElementById("loadingState");
+const emptyState = document.getElementById("emptyState");
+const analysisContent = document.getElementById("analysisContent");
+const errorMessage = document.getElementById("errorMessage");
+const rulesContainer = document.getElementById("rulesContainer");
+
+function getToken() {
+    return localStorage.getItem(TOKEN_KEY);
+}
+
+function setText(id, value) {
+    document.getElementById(id).textContent =
+        value === null || value === undefined || value === ""
+            ? "—" : String(value);
+}
+
+function formatAmount(value) {
+    if (value === null || value === undefined || value === "") return "—";
+    const amount = Number(value);
+    if (!Number.isFinite(amount)) return "—";
+    return amount.toLocaleString("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 2
+    });
+}
+
+function formatDate(value) {
+    if (!value) return "—";
+    const parts = String(value).split("T")[0].split("-");
+    if (parts.length !== 3) return String(value);
+    return new Date(
+        Number(parts[0]), Number(parts[1]) - 1, Number(parts[2])
+    ).toLocaleDateString("en-IN", {
+        day: "2-digit", month: "short", year: "numeric"
+    });
+}
+
+function formatDateTime(value) {
+    if (!value) return "—";
+    const date = new Date(value);
+    return Number.isNaN(date.getTime())
+        ? String(value) : date.toLocaleString("en-IN");
+}
+
+function showEmpty(title, description) {
+    loadingState.hidden = true;
+    analysisContent.hidden = true;
+    emptyState.hidden = false;
+    setText("emptyTitle", title);
+    setText("emptyDescription", description);
+}
+
+function showError(message) {
+    errorMessage.textContent = message;
+    errorMessage.hidden = false;
+}
+
+function riskClass(level) {
+    switch (String(level).toUpperCase()) {
+        case "LOW": return "risk-low";
+        case "MEDIUM": return "risk-medium";
+        case "HIGH": return "risk-high";
+        default: return "";
+    }
+}
+
+const ruleInfo = {
+    FREQUENCY: {
+        title: "Claim Frequency Anomaly",
+        icon: "bi-arrow-repeat",
+        maximum: 30
+    },
+    TEMPORAL: {
+        title: "Temporal Anomaly",
+        icon: "bi-calendar-event",
+        maximum: 25
+    },
+    AMOUNT_OUTLIER: {
+        title: "Claim Amount Outlier",
+        icon: "bi-currency-rupee",
+        maximum: 45
+    }
+};
+
+// Load authenticated user's claims
+async function loadClaims() {
+    const token = getToken();
+
+    if (!token) {
+        window.location.href = "index.html";
+        return;
+    }
+
+    loadingState.hidden = false;
+    emptyState.hidden = true;
+    analysisContent.hidden = true;
+    errorMessage.hidden = true;
+    claimSelect.disabled = true;
+    loadButton.disabled = true;
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/claims/my`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json"
+            }
+        });
+
+        if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem(TOKEN_KEY);
+            window.location.href = "index.html";
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error(`Claims API returned HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+            throw new Error("Unexpected claims API response.");
+        }
+
+        claims = data;
+        claimSelect.innerHTML = "";
+
+        if (claims.length === 0) {
+            showEmpty(
+                "No claims found",
+                "Submit a motor insurance claim to view its fraud analysis."
+            );
+            return;
+        }
+
+        claims.forEach(claim => {
+            const option = document.createElement("option");
+            option.value = claim.claimId;
+            option.textContent =
+                `CLM-${claim.claimId} | ${claim.claimType || "Claim"} | ${formatAmount(claim.claimAmount)}`;
+            claimSelect.appendChild(option);
+        });
+
+        const requestedId =
+            new URLSearchParams(window.location.search).get("claimId");
+
+        const matchingClaim = claims.find(
+            claim => String(claim.claimId) === String(requestedId)
+        );
+
+        claimSelect.value = String(
+            matchingClaim ? matchingClaim.claimId : claims[0].claimId
+        );
+
+        claimSelect.disabled = false;
+        loadButton.disabled = false;
+        loadingState.hidden = true;
+
+        await loadSelectedClaim();
+
+    } catch (error) {
+        console.error(error);
+        loadingState.hidden = true;
+        showEmpty("Unable to load claims", error.message);
+        showError(error.message);
+    }
+}
+
+// Load selected claim's actual evaluation
+async function loadSelectedClaim() {
+    const token = getToken();
+    const claimId = Number(claimSelect.value);
+
+    const claim = claims.find(
+        item => Number(item.claimId) === claimId
+    );
+
+    if (!claim || !Number.isInteger(claimId)) {
+        showEmpty("Claim not found", "Please select a valid claim.");
+        return;
+    }
+
+    loadingState.hidden = false;
+    emptyState.hidden = true;
+    analysisContent.hidden = true;
+    errorMessage.hidden = true;
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/claims/${claimId}/evaluation`,
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem(TOKEN_KEY);
+            window.location.href = "index.html";
+            return;
+        }
+
+        if (response.status === 404) {
+            showEmpty(
+                "Fraud evaluation not available",
+                "This claim does not have a saved fraud evaluation."
+            );
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error(`Evaluation API returned HTTP ${response.status}`);
+        }
+
+        const evaluation = await response.json();
+
+        renderAnalysis(claim, evaluation);
+
+        loadingState.hidden = true;
+        emptyState.hidden = true;
+        analysisContent.hidden = false;
+
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.set("claimId", claimId);
+        window.history.replaceState({}, "", newUrl);
+
+    } catch (error) {
+        console.error(error);
+        loadingState.hidden = true;
+        showEmpty("Evaluation could not be loaded", error.message);
+        showError(error.message);
+    }
+}
+
+// Render actual backend data
+function renderAnalysis(claim, evaluation) {
+    const total = Number(evaluation.totalRiskScore ?? 0);
+    const level = String(evaluation.riskLevel || "UNKNOWN").toUpperCase();
+
+    const frequency = Number(evaluation.frequencyScore ?? 0);
+    const temporal = Number(evaluation.temporalScore ?? 0);
+    const amount = Number(evaluation.amountOutlierScore ?? 0);
+
+    setText("totalScore", total);
+    setText("summaryTotal", `${total} / 100`);
+    setText("evaluationId", evaluation.evaluationId);
+    setText("evaluatedAt", formatDateTime(evaluation.evaluatedAt));
+
+    const badge = document.getElementById("riskBadge");
+    badge.className = `risk-badge ${riskClass(level)}`;
+    badge.textContent = `${level} RISK`;
+
+    document.getElementById("overallScoreBar").style.width =
+        `${Math.max(0, Math.min(total, 100))}%`;
+
+    const descriptions = {
+        LOW: "The configured fraud rules returned a LOW risk level. No strong indicator was triggered in this evaluation.",
+        MEDIUM: "The configured fraud rules returned a MEDIUM risk level. Additional verification may be appropriate.",
+        HIGH: "The configured fraud rules returned a HIGH risk level. The claim should receive careful manual review."
+    };
+
+    setText(
+        "riskDescription",
+        descriptions[level] || "Risk assessment information was returned by the backend."
+    );
+
+    setText("claimId", `CLM-${claim.claimId}`);
+    setText("policyId", claim.policyId);
+    setText("claimType", claim.claimType);
+    setText("claimAmount", formatAmount(claim.claimAmount));
+    setText("incidentDate", formatDate(claim.incidentDate));
+    setText("claimStatus", claim.status);
+    
+    setText("frequencyMetric", `${frequency} pts`);
+    setText("temporalMetric", `${temporal} pts`);
+    setText("amountMetric", `${amount} pts`);
+
+    renderRules(evaluation.ruleResults || []);
+}
+
+// Render individual rule results safely
+function renderRules(results) {
+    rulesContainer.innerHTML = "";
+    setText("ruleCount", `${results.length} Rules Evaluated`);
+
+    if (results.length === 0) {
+        const message = document.createElement("p");
+        message.className = "subtitle";
+        message.textContent = "No individual rule results were returned.";
+        rulesContainer.appendChild(message);
+        return;
+    }
+
+    results.forEach(rule => {
+        const name = String(rule.ruleName || "UNKNOWN").toUpperCase();
+
+        const info = ruleInfo[name] || {
+            title: name.replaceAll("_", " "),
+            icon: "bi-shield-check",
+            maximum: 100
+        };
+
+        const points = Number(rule.pointsAwarded ?? 0);
+        const triggered = rule.triggered === true;
+        const percentage = Math.max(
+            0, Math.min((points / info.maximum) * 100, 100)
+        );
+
+        const item = document.createElement("div");
+        item.className = "rule-item";
+
+        const header = document.createElement("div");
+        header.className =
+            "d-flex justify-content-between align-items-start gap-3 flex-wrap";
+
+        const titleArea = document.createElement("div");
+
+        const title = document.createElement("div");
+        title.className = "rule-heading";
+
+        const icon = document.createElement("i");
+        icon.className = `bi ${info.icon} me-2 text-primary`;
+
+        const titleText = document.createElement("span");
+        titleText.textContent = info.title;
+
+        title.append(icon, titleText);
+
+        const maximum = document.createElement("div");
+        maximum.className = "subtitle mt-1";
+        maximum.textContent = `Maximum contribution: ${info.maximum} points`;
+
+        titleArea.append(title, maximum);
+
+        const score = document.createElement("div");
+        score.className = "rule-score";
+        score.textContent = `${points} / ${info.maximum}`;
+
+        header.append(titleArea, score);
+        item.appendChild(header);
+
+        const track = document.createElement("div");
+        track.className = "score-track";
+
+        const fill = document.createElement("div");
+        fill.className = "score-fill";
+        fill.style.width = `${percentage}%`;
+
+        track.appendChild(fill);
+        item.appendChild(track);
+
+        const status = document.createElement("div");
+        status.className = "mt-3";
+
+        const statusBadge = document.createElement("span");
+        statusBadge.className = triggered
+            ? "badge text-bg-warning"
+            : "badge text-bg-success";
+
+        statusBadge.textContent = triggered
+            ? "Risk indicator triggered"
+            : "Not triggered";
+
+        status.appendChild(statusBadge);
+        item.appendChild(status);
+
+        const observed = document.createElement("div");
+        observed.className = "observed-box";
+
+        const observedLabel = document.createElement("strong");
+        observedLabel.textContent = "Observed Value: ";
+
+        observed.append(
+            observedLabel,
+            document.createTextNode(rule.observedValue || "Not provided")
+        );
+
+        item.appendChild(observed);
+
+        const reason = document.createElement("p");
+        reason.className = "rule-reason mb-0";
+        reason.textContent =
+            rule.reason || "No explanation provided by the backend.";
+
+        item.appendChild(reason);
+        rulesContainer.appendChild(item);
+    });
+}
+
+// Buttons and dropdown
+loadButton.addEventListener("click", loadSelectedClaim);
+claimSelect.addEventListener("change", loadSelectedClaim);
+document.getElementById("refreshButton").addEventListener("click", loadClaims);
+
+// Initialize
+loadClaims();
+
+</script>
+</body>
+</html>

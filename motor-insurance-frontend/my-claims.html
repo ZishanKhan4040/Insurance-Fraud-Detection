@@ -1,0 +1,1197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Claims | MotorSure</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #14213d;
+            --blue: #3157d5;
+            --muted: #738096;
+            --border: #e5eaf2;
+            --bg: #f4f7fb;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: #26344a;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topbar {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+        }
+
+        .brand {
+            color: var(--navy);
+            font-size: 23px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .brand i { color: var(--blue); }
+
+        .page-container {
+            max-width: 1250px;
+            margin: 32px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            color: var(--navy);
+            font-weight: 800;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .btn-primary-custom,
+        .btn-secondary-custom {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 9px;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-primary-custom {
+            background: var(--blue);
+            color: white;
+            border: 0;
+        }
+
+        .btn-primary-custom:hover {
+            background: #2445b7;
+            color: white;
+        }
+
+        .btn-secondary-custom {
+            background: white;
+            color: #34425b;
+            border: 1px solid #dce3ed;
+        }
+
+        .summary-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            height: 100%;
+            box-shadow: 0 4px 16px rgba(25, 43, 75, 0.025);
+        }
+
+        .summary-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background: #edf1ff;
+            color: var(--blue);
+            border-radius: 11px;
+            font-size: 20px;
+        }
+
+        .summary-number {
+            color: var(--navy);
+            font-size: 27px;
+            font-weight: 800;
+            margin-top: 13px;
+        }
+
+        .summary-label {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(25, 43, 75, 0.025);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 22px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            color: var(--navy);
+            font-weight: 800;
+            font-size: 17px;
+        }
+
+        .filter-area {
+            padding: 20px 24px;
+            display: grid;
+            grid-template-columns: minmax(200px, 1.5fr) 1fr 1fr auto;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 43px;
+            border-color: #dce3ed;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .table {
+            margin: 0;
+            vertical-align: middle;
+            min-width: 900px;
+        }
+
+        .table thead th {
+            background: #f8faff;
+            color: var(--muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .55px;
+            font-weight: 800;
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            padding: 17px 16px;
+            border-color: #edf0f5;
+            font-size: 13px;
+        }
+
+        .claim-id {
+            color: var(--blue);
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .claim-type {
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .status-pending,
+        .risk-medium {
+            color: #925b00;
+            background: #fff1d7;
+        }
+
+        .status-approved,
+        .risk-low {
+            color: #167348;
+            background: #e0f6eb;
+        }
+
+        .status-rejected,
+        .risk-high {
+            color: #b52b35;
+            background: #ffe5e7;
+        }
+
+        .status-other,
+        .risk-unknown {
+            color: #526078;
+            background: #edf0f5;
+        }
+
+        .view-link {
+            color: var(--blue);
+            font-weight: 800;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .view-link:hover { text-decoration: underline; }
+
+        .table-footer {
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .empty-state {
+            display: none;
+            padding: 45px 20px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .empty-state i {
+            font-size: 35px;
+            color: #9aa8bd;
+        }
+
+        .notice {
+            border-radius: 10px;
+            padding: 13px 16px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .notice-info {
+            background: #eef2ff;
+            border: 1px solid #d7e1ff;
+            color: #344b91;
+        }
+
+        .notice-error {
+            background: #fff0f0;
+            border: 1px solid #f2caca;
+            color: #a52834;
+        }
+
+        footer {
+            padding: 25px 12px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .filter-area { grid-template-columns: 1fr 1fr; }
+            .search-field { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 575px) {
+            .page-container {
+                margin-top: 22px;
+                padding: 0 12px;
+            }
+
+            .panel-header,
+            .filter-area { padding: 16px; }
+
+            .filter-area { grid-template-columns: 1fr; }
+            .search-field { grid-column: auto; }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="topbar">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+        <a href="dashboard.html" class="brand">
+            <i class="bi bi-shield-check"></i> MotorSure
+        </a>
+
+        <div class="d-flex flex-wrap gap-2">
+
+            <a href="dashboard.html" class="btn-secondary-custom">
+                <i class="bi bi-grid"></i> Dashboard
+            </a>
+
+            <a href="submit-file.html" class="btn-primary-custom">
+                <i class="bi bi-plus-lg"></i> Submit Claim
+            </a>
+
+            <button id="logoutButton" class="btn-secondary-custom" type="button">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+
+        </div>
+    </div>
+</nav>
+
+<main class="page-container">
+
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+
+        <div>
+            <div class="subtitle mb-2">Claimant Portal / My Claims</div>
+
+            <h1 class="page-title h2 mb-2">My Claims</h1>
+
+            <p class="subtitle mb-0">
+                Track your motor insurance claims and review their current status.
+            </p>
+        </div>
+
+        <a href="submit-file.html" class="btn-primary-custom">
+            <i class="bi bi-plus-circle"></i> Submit New Claim
+        </a>
+
+    </div>
+
+    <!-- Summary Cards -->
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-6 col-lg-3">
+            <div class="summary-card">
+                <div class="summary-icon"><i class="bi bi-files"></i></div>
+                <div class="summary-number" id="totalClaims">0</div>
+                <div class="summary-label">Total Claims</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="summary-card">
+                <div class="summary-icon"><i class="bi bi-hourglass-split"></i></div>
+                <div class="summary-number" id="pendingClaims">0</div>
+                <div class="summary-label">Pending Claims</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="summary-card">
+                <div class="summary-icon"><i class="bi bi-check-circle"></i></div>
+                <div class="summary-number" id="approvedClaims">0</div>
+                <div class="summary-label">Approved Claims</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="summary-card">
+                <div class="summary-icon"><i class="bi bi-shield-exclamation"></i></div>
+                <div class="summary-number" id="highRiskClaims">0</div>
+                <div class="summary-label">High-Risk Claims</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="errorNotice" class="notice notice-error mb-4"
+         role="alert" hidden></div>
+
+    <section class="panel">
+
+        <div class="panel-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+            <div>
+                <div class="panel-title">Claim History</div>
+                <div class="subtitle mt-1">
+                    Search and filter your submitted claims.
+                </div>
+            </div>
+
+            <span class="subtitle">
+                Showing <strong id="visibleCount">0</strong> records
+            </span>
+
+        </div>
+
+        <!-- Filters -->
+
+        <div class="filter-area">
+
+            <div class="search-field">
+
+                <label for="searchInput" class="form-label small fw-bold">
+                    Search Claims
+                </label>
+
+                <div class="input-group">
+
+                    <span class="input-group-text bg-white">
+                        <i class="bi bi-search"></i>
+                    </span>
+
+                    <input type="text"
+                           class="form-control"
+                           id="searchInput"
+                           placeholder="Claim ID or policy number">
+
+                </div>
+            </div>
+
+            <div>
+
+                <label for="statusFilter" class="form-label small fw-bold">
+                    Claim Status
+                </label>
+
+                <select id="statusFilter" class="form-select">
+                    <option value="all">All Statuses</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+
+            </div>
+
+            <div>
+
+                <label for="riskFilter" class="form-label small fw-bold">
+                    Risk Level
+                </label>
+
+                <select id="riskFilter" class="form-select">
+                    <option value="all">All Risk Levels</option>
+                    <option value="LOW">Low</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="HIGH">High</option>
+                    <option value="UNKNOWN">Not Evaluated</option>
+                </select>
+
+            </div>
+
+            <div class="d-flex flex-column justify-content-end">
+
+                <button class="btn-secondary-custom"
+                        id="resetFilters"
+                        type="button">
+                    <i class="bi bi-arrow-counterclockwise"></i> Reset
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Claims Table -->
+
+        <div class="table-responsive">
+
+            <table class="table" id="claimsTable">
+
+                <thead>
+                    <tr>
+                        <th>Claim ID</th>
+                        <th>Policy Number</th>
+                        <th>Claim Type</th>
+                        <th>Incident Date</th>
+                        <th>Claim Amount</th>
+                        <th>Risk Level</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="claimsTableBody">
+
+                    <tr>
+                        <td colspan="8" class="text-center py-5">
+
+                            <div class="spinner-border spinner-border-sm text-primary me-2"
+                                 role="status"></div>
+
+                            Loading your claims...
+
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="empty-state" id="emptyState">
+
+            <i class="bi bi-search"></i>
+
+            <h5 class="mt-3 fw-bold">No claims found</h5>
+
+            <p class="mb-0">
+                Try changing your search or filter criteria.
+            </p>
+
+        </div>
+
+        <div class="table-footer">
+
+            <span class="subtitle" id="resultsText">
+                Loading claims...
+            </span>
+
+            <a href="dashboard.html" class="view-link">
+                Back to Dashboard <i class="bi bi-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    // =========================================
+    // 1. API CONFIGURATION
+    // =========================================
+
+    const API_BASE_URL = "http://localhost:8080/api";
+
+    const searchInput = document.getElementById("searchInput");
+    const statusFilter = document.getElementById("statusFilter");
+    const riskFilter = document.getElementById("riskFilter");
+
+    const resetButton = document.getElementById("resetFilters");
+    const logoutButton = document.getElementById("logoutButton");
+
+    const tableBody = document.getElementById("claimsTableBody");
+    const emptyState = document.getElementById("emptyState");
+
+    const visibleCount = document.getElementById("visibleCount");
+    const resultsText = document.getElementById("resultsText");
+
+    const errorNotice = document.getElementById("errorNotice");
+   
+    let claims = [];
+
+
+    // =========================================
+    // 2. GET JWT TOKEN
+    // =========================================
+
+    function getToken() {
+        return localStorage.getItem("motorsure_token");
+    }
+
+
+    // =========================================
+    // 3. HTML ESCAPE
+    // =========================================
+
+    function escapeHtml(value) {
+
+        return String(value ?? "").replace(/[&<>"']/g, function (character) {
+
+            const entities = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            };
+
+            return entities[character];
+
+        });
+    }
+
+
+    // =========================================
+    // 4. FORMAT DATE
+    // =========================================
+
+    function formatDate(value) {
+
+        if (!value) return "—";
+
+        const parts = String(value).split("T")[0].split("-");
+
+        if (parts.length !== 3) {
+            return escapeHtml(value);
+        }
+
+        const date = new Date(
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2])
+        );
+
+        return date.toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
+
+    }
+
+
+    // =========================================
+    // 5. FORMAT CLAIM AMOUNT
+    // =========================================
+
+    function formatAmount(value) {
+
+        if (value === null || value === undefined || value === "") {
+            return "—";
+        }
+
+        const amount = Number(value);
+
+        if (!Number.isFinite(amount)) {
+            return "—";
+        }
+
+        return amount.toLocaleString("en-IN", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 2
+        });
+
+    }
+
+
+    // =========================================
+    // 6. NORMALIZE CLAIM STATUS
+    // =========================================
+
+    function normalizeStatus(status) {
+
+        const value = String(status || "").toUpperCase();
+
+        if (
+            ["SUBMITTED", "PENDING", "UNDER_REVIEW", "IN_REVIEW"]
+                .includes(value)
+        ) {
+            return "Pending";
+        }
+
+        if (value === "APPROVED") return "Approved";
+
+        if (value === "REJECTED") return "Rejected";
+
+        return value ? value.replaceAll("_", " ") : "Unknown";
+
+    }
+
+
+    function statusClass(status) {
+
+        if (status === "Pending") return "status-pending";
+
+        if (status === "Approved") return "status-approved";
+
+        if (status === "Rejected") return "status-rejected";
+
+        return "status-other";
+
+    }
+
+
+    // =========================================
+    // 7. GET CLAIM ID
+    // =========================================
+
+    function getClaimId(claim) {
+
+        return claim.claimId ?? claim.id ?? "—";
+
+    }
+
+
+    // =========================================
+    // 8. NORMALIZE FRAUD RISK LEVEL
+    // =========================================
+
+    function normalizeRiskLevel(value) {
+
+        const risk = String(value || "UNKNOWN")
+            .trim()
+            .toUpperCase();
+
+        return ["LOW", "MEDIUM", "HIGH"].includes(risk)
+            ? risk
+            : "UNKNOWN";
+
+    }
+
+
+    // =========================================
+    // 9. RISK LEVEL CSS CLASS
+    // =========================================
+
+    function riskClass(riskLevel) {
+
+        switch (normalizeRiskLevel(riskLevel)) {
+
+            case "LOW":
+                return "risk-low";
+
+            case "MEDIUM":
+                return "risk-medium";
+
+            case "HIGH":
+                return "risk-high";
+
+            default:
+                return "risk-unknown";
+
+        }
+
+    }
+
+
+    // =========================================
+    // 10. UPDATE SUMMARY CARDS
+    // =========================================
+
+    function renderSummary() {
+
+        document.getElementById("totalClaims").textContent =
+            claims.length;
+
+        document.getElementById("pendingClaims").textContent =
+            claims.filter(function (claim) {
+                return normalizeStatus(claim.status) === "Pending";
+            }).length;
+
+        document.getElementById("approvedClaims").textContent =
+            claims.filter(function (claim) {
+                return normalizeStatus(claim.status) === "Approved";
+            }).length;
+
+        document.getElementById("highRiskClaims").textContent =
+            claims.filter(function (claim) {
+                return normalizeRiskLevel(claim.riskLevel) === "HIGH";
+            }).length;
+
+    }
+
+
+    // =========================================
+    // 11. DISPLAY CLAIMS
+    // =========================================
+
+    function renderClaims() {
+
+        const searchText = searchInput.value.trim().toLowerCase();
+console.log("Search Text:", searchText);
+        const selectedStatus = statusFilter.value;
+        const selectedRisk = riskFilter.value;
+
+        const filteredClaims = claims.filter(function (claim) {
+
+          //  const claimId = String(getClaimId(claim)).toLowerCase();
+          const claimId = `clm-${getClaimId(claim)}`.toLowerCase();
+//const claimId = String(getClaimId(claim) || "").toLowerCase().replace(/^clm-/, "");
+            
+            const policyNumber = String(
+                claim.policyNumber || ""
+            ).toLowerCase();
+
+            const status = normalizeStatus(claim.status);
+
+            const riskLevel = normalizeRiskLevel(claim.riskLevel);
+
+            const matchesSearch =
+                claimId.includes(searchText) ||
+                policyNumber.includes(searchText) ||
+                String(claim.claimType || "")
+                    .toLowerCase()
+                    .includes(searchText);
+
+            const matchesStatus =
+                selectedStatus === "all" ||
+                status === selectedStatus;
+
+            const matchesRisk =
+                selectedRisk === "all" ||
+                riskLevel === selectedRisk;
+
+            return matchesSearch && matchesStatus && matchesRisk;
+
+        });
+
+
+        tableBody.innerHTML = "";
+
+
+        filteredClaims.forEach(function (claim) {
+
+            const status = normalizeStatus(claim.status);
+
+            const claimId = getClaimId(claim);
+
+            const claimType = String(
+                claim.claimType || "—"
+            ).replaceAll("_", " ");
+
+            const riskLevel = normalizeRiskLevel(claim.riskLevel);
+
+            const score = claim.totalRiskScore;
+
+            const riskLabel = riskLevel === "UNKNOWN"
+                ? "Not evaluated"
+                : riskLevel;
+
+            const riskScoreLabel =
+                score === null || score === undefined || score === ""
+                    ? ""
+                    : ` (${escapeHtml(score)})`;
+
+            const row = document.createElement("tr");
+
+
+            row.innerHTML = `
+
+                <td>
+                    <span class="claim-id">
+                        CLM-${escapeHtml(claimId)}
+                    </span>
+                </td>
+
+                <td>
+                    ${escapeHtml(claim.policyNumber || "—")}
+                </td>
+
+                <td>
+                    <span class="claim-type">
+                        ${escapeHtml(claimType)}
+                    </span>
+                </td>
+
+                <td>
+                    ${formatDate(claim.incidentDate)}
+                </td>
+
+                <td>
+                    ${formatAmount(claim.claimAmount)}
+                </td>
+
+                <td>
+                    <span class="pill ${riskClass(riskLevel)}">
+                        ${escapeHtml(riskLabel)}${riskScoreLabel}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="pill ${statusClass(status)}">
+                        ${escapeHtml(status)}
+                    </span>
+                </td>
+
+                <td>
+    <a
+        href="fraud-result.html?claimId=${encodeURIComponent(claimId)}"
+        class="btn btn-sm btn-primary"
+        style="border-radius: 8px; font-size: 12px; font-weight: 600;"
+    >
+        <i class="bi bi-shield-check"></i>
+        View Analysis
+    </a>
+</td>
+
+            `;
+
+            tableBody.appendChild(row);
+
+        });
+
+
+        visibleCount.textContent = filteredClaims.length;
+
+        emptyState.style.display =
+            filteredClaims.length === 0 ? "block" : "none";
+
+        resultsText.textContent =
+            `Showing ${filteredClaims.length} of ${claims.length} claims`;
+
+
+        if (filteredClaims.length === 0) {
+            tableBody.innerHTML = "";
+        }
+
+    }
+
+
+    // =========================================
+    // 12. LOAD FRAUD EVALUATION FOR EACH CLAIM
+    // =========================================
+
+    async function loadEvaluationForClaim(claim, token) {
+
+        const claimId = getClaimId(claim);
+
+        if (
+            claimId === "—" ||
+            claimId === null ||
+            claimId === undefined
+        ) {
+
+            return {
+                ...claim,
+                riskLevel: "UNKNOWN",
+                totalRiskScore: null
+            };
+
+        }
+
+
+        try {
+
+            const response = await fetch(
+                `${API_BASE_URL}/claims/${encodeURIComponent(claimId)}/evaluation`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+
+            // Claim may not have an evaluation record yet.
+
+            if (!response.ok) {
+
+                console.warn(
+                    `Evaluation unavailable for claim ${claimId}: HTTP ${response.status}`
+                );
+
+                return {
+                    ...claim,
+                    riskLevel: "UNKNOWN",
+                    totalRiskScore: null
+                };
+
+            }
+
+
+            const evaluation = await response.json();
+
+
+            return {
+                ...claim,
+                riskLevel: normalizeRiskLevel(evaluation.riskLevel),
+                totalRiskScore: evaluation.totalRiskScore ?? null
+            };
+
+        } catch (error) {
+
+            console.warn(
+                `Could not load evaluation for claim ${claimId}:`,
+                error
+            );
+
+            return {
+                ...claim,
+                riskLevel: "UNKNOWN",
+                totalRiskScore: null
+            };
+
+        }
+
+    }
+
+
+    // =========================================
+    // 13. LOAD MY CLAIMS FROM BACKEND
+    // =========================================
+
+    async function loadMyClaims() {
+
+        const token = getToken();
+
+
+        if (!token) {
+
+            window.location.href = "index.html";
+            return;
+
+        }
+
+
+        errorNotice.hidden = true;
+
+        tableBody.innerHTML = `
+
+            <tr>
+                <td colspan="8" class="text-center py-5">
+
+                    <div class="spinner-border spinner-border-sm text-primary me-2"
+                         role="status"></div>
+
+                    Loading your claims...
+
+                </td>
+            </tr>
+
+        `;
+
+
+        try {
+
+            // Fetch claims belonging to the logged-in user.
+
+            const response = await fetch(
+                `${API_BASE_URL}/claims/my`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+
+            if (response.status === 401 || response.status === 403) {
+
+                throw new Error(
+                    "Your session is invalid or you are not authorized. Please log in again."
+                );
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    `Unable to load claims. HTTP ${response.status}`
+                );
+
+            }
+
+
+            const data = await response.json();
+
+
+            if (!Array.isArray(data)) {
+
+                throw new Error(
+                    "Unexpected response from the claims API."
+                );
+
+            }
+
+
+            /*
+             * Claims API does not include fraud evaluation details.
+             * So fetch evaluation separately for every claim.
+             */
+
+            claims = await Promise.all(
+
+                data.map(function (claim) {
+
+                    return loadEvaluationForClaim(claim, token);
+
+                })
+
+            );
+
+
+            renderSummary();
+
+            renderClaims();
+
+
+            console.log(
+                "My Claims with fraud evaluations loaded:",
+                claims
+            );
+
+
+
+        } catch (error) {
+
+            console.error("Error loading claims:", error);
+
+            tableBody.innerHTML = "";
+
+            claims = [];
+
+            renderSummary();
+
+
+            errorNotice.textContent =
+                error.message ||
+                "An unexpected error occurred while loading your claims.";
+
+            errorNotice.hidden = false;
+
+            emptyState.style.display = "none";
+
+            visibleCount.textContent = "0";
+
+            resultsText.textContent = "Claims could not be loaded";
+
+        }
+
+    }
+
+
+    // =========================================
+    // 14. SEARCH AND FILTER EVENTS
+    // =========================================
+
+    searchInput.addEventListener(
+        "input",
+        renderClaims
+    );
+
+    statusFilter.addEventListener(
+        "change",
+        renderClaims
+    );
+
+    riskFilter.addEventListener(
+        "change",
+        renderClaims
+    );
+
+
+    // =========================================
+    // 15. RESET FILTERS
+    // =========================================
+
+    resetButton.addEventListener("click", function () {
+
+        searchInput.value = "";
+
+        statusFilter.value = "all";
+
+        riskFilter.value = "all";
+
+        renderClaims();
+
+    });
+
+
+    // =========================================
+    // 16. LOGOUT
+    // =========================================
+
+    logoutButton.addEventListener("click", function () {
+
+        localStorage.removeItem("motorsure_token");
+
+        window.location.href = "index.html";
+
+    });
+
+
+    // =========================================
+    // 17. INITIALIZE PAGE
+    // =========================================
+
+    loadMyClaims();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | MotorSure</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #14213d;
+            --blue: #3157d5;
+            --muted: #738096;
+            --border: #e5eaf2;
+            --bg: #f4f7fb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: #26344a;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+        }
+
+        .brand {
+            color: var(--navy);
+            font-size: 23px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .brand i {
+            color: var(--blue);
+        }
+
+        .page-container {
+            max-width: 1150px;
+            margin: 32px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            color: var(--navy);
+            font-weight: 800;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .btn-primary-custom {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--blue);
+            color: #fff;
+            border: 0;
+            border-radius: 9px;
+            padding: 11px 16px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-primary-custom:hover {
+            background: #2445b7;
+            color: #fff;
+        }
+
+        .btn-secondary-custom {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #fff;
+            color: #34425b;
+            border: 1px solid #dce3ed;
+            border-radius: 9px;
+            padding: 10px 14px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .panel {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(25, 43, 75, .025);
+            overflow: hidden;
+            margin-bottom: 22px;
+        }
+
+        .panel-header {
+            padding: 22px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            color: var(--navy);
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .panel-body {
+            padding: 24px;
+        }
+
+        .profile-banner {
+            background: linear-gradient(135deg, #172747, #2b477d);
+            border-radius: 15px;
+            color: #fff;
+            padding: 28px;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 82px;
+            height: 82px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .14);
+            border: 2px solid rgba(255, 255, 255, .35);
+            font-size: 34px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .profile-name {
+            font-size: 25px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .profile-meta {
+            color: #d5def1;
+            font-size: 13px;
+        }
+
+        .account-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 20px;
+            background: #dcf7e9;
+            color: #167348;
+            padding: 7px 11px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .form-label {
+            color: #35445c;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .form-control {
+            min-height: 44px;
+            border: 1px solid #dce3ed;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(49, 87, 213, .1);
+        }
+
+        .form-control:disabled {
+            background: #f5f7fb;
+            color: #738096;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 17px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #edf1ff;
+            color: var(--blue);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .info-heading {
+            color: var(--navy);
+            font-weight: 750;
+            font-size: 14px;
+        }
+
+        .info-description {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 4px;
+        }
+
+        .notice {
+            padding: 13px 16px;
+            background: #eef2ff;
+            color: #344b91;
+            border: 1px solid #d7e1ff;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .message {
+            display: none;
+            border-radius: 9px;
+            padding: 12px 15px;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .message-success {
+            background: #e0f6eb;
+            color: #167348;
+        }
+
+        .message-error {
+            background: #ffe5e7;
+            color: #b52b35;
+        }
+
+       footer {
+    position: static;
+    width: 100%;
+    margin-top: 30px;
+    padding: 20px 10px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+        @media (max-width: 575px) {
+            .page-container {
+                margin-top: 22px;
+                padding: 0 12px;
+            }
+
+            .panel-header,
+            .panel-body {
+                padding: 17px;
+            }
+
+            .profile-banner {
+                padding: 20px;
+            }
+
+            .profile-name {
+                font-size: 21px;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .header-actions a {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="topbar">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <a href="dashboard.html" class="brand">
+                <i class="bi bi-shield-check"></i> MotorSure
+            </a>
+
+            <div class="d-flex gap-2 flex-wrap header-actions">
+                <a href="dashboard.html" class="btn-secondary-custom">
+                    <i class="bi bi-grid"></i> Dashboard
+                </a>
+
+                <a href="my-claims.html" class="btn-primary-custom">
+                    <i class="bi bi-files"></i> My Claims
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-container">
+
+        <!-- Page Heading -->
+        <div class="mb-4">
+            <div class="subtitle mb-2">Claimant Portal / My Profile</div>
+            <h1 class="page-title h2 mb-2">My Profile</h1>
+            <p class="subtitle mb-0">
+               View your registered account information.
+            </p>
+        </div>
+
+        <!-- Profile Banner -->
+        <section class="profile-banner mb-4">
+            <div class="avatar" id="profileAvatar">U</div>
+
+            <div class="flex-grow-1">
+                <div class="profile-name" id="bannerName">Demo User</div>
+                <div class="profile-meta mb-2" id="bannerEmail">
+                    user@example.com
+                </div>
+                <div class="profile-meta">
+                    <i class="bi bi-person-badge me-1"></i>
+                    Claimant Account
+                </div>
+            </div>
+
+            
+        </section>
+
+        
+
+        <div class="row g-4">
+
+            <!-- Read Only Profile -->
+<div class="col-lg-7">
+    <section class="panel">
+
+        <div class="panel-header">
+            <div class="panel-title">Personal Information</div>
+            <div class="subtitle mt-1">
+                Your registered MotorSure account details.
+            </div>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label for="fullName" class="form-label">
+                        Full Name
+                    </label>
+                    <input type="text"
+                           class="form-control"
+                           id="fullName"
+                           readonly>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="email" class="form-label">
+                        Email Address
+                    </label>
+                    <input type="email"
+                           class="form-control"
+                           id="email"
+                           readonly>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="role" class="form-label">
+                        Account Role
+                    </label>
+                    <input type="text"
+                           class="form-control"
+                           id="role"
+                           readonly>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="userId" class="form-label">
+                        User ID
+                    </label>
+                    <input type="text"
+                           class="form-control"
+                           id="userId"
+                           readonly>
+                </div>
+
+            </div>
+
+            <p class="subtitle mt-3 mb-0">
+                Profile information is displayed in read-only mode.
+            </p>
+
+        </div>
+    </section>
+
+
+                <!-- Account Details -->
+                <section class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">Account Information</div>
+                        <div class="subtitle mt-1">
+                            Basic details about your MotorSure account.
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="info-row">
+                            <div class="info-icon">
+                                <i class="bi bi-person-check"></i>
+                            </div>
+                            <div>
+                                <div class="info-heading">Account Type</div>
+                                <div class="info-description">
+                                    Claimant — submits and tracks motor insurance claims.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-icon">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                            <div>
+                                <div class="info-heading">Authentication</div>
+                                <div class="info-description">
+                                    The backend uses authenticated API access.
+                                    Profile changes should be authorized by the server.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-icon">
+                                <i class="bi bi-database-check"></i>
+                            </div>
+                            <div>
+    <div class="info-heading">Data Storage</div>
+    <div class="info-description">
+        Account information is retrieved securely
+        from the MotorSure backend and MySQL database.
+    </div>
+</div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+
+            <!-- Side Panel -->
+            <div class="col-lg-5">
+
+                <section class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">Account Security</div>
+                        <div class="subtitle mt-1">
+                            Security-related account actions.
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="info-row">
+                            <div class="info-icon">
+                                <i class="bi bi-key"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="info-heading">Password</div>
+                                <div class="info-description">
+                                    Password changes should be handled by a secure,
+                                    authenticated backend endpoint.
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-icon">
+                                <i class="bi bi-box-arrow-right"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="info-heading">Sign Out</div>
+                                <div class="info-description">
+                                    Return to the login page.
+                                </div>
+                                <button type="button"
+                                        class="btn-secondary-custom mt-3"
+                                        id="logoutButton">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    Log Out
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">Quick Links</div>
+                    </div>
+
+                    <div class="panel-body">
+                        <a href="my-policies.html"
+                           class="d-flex align-items-center justify-content-between text-decoration-none py-2">
+                            <span class="info-heading">
+                                <i class="bi bi-shield-check me-2 text-primary"></i>
+                                My Policies
+                            </span>
+                            <i class="bi bi-chevron-right text-secondary"></i>
+                        </a>
+
+                        <hr>
+
+                        <a href="my-claims.html"
+                           class="d-flex align-items-center justify-content-between text-decoration-none py-2">
+                            <span class="info-heading">
+                                <i class="bi bi-files me-2 text-primary"></i>
+                                My Claims
+                            </span>
+                            <i class="bi bi-chevron-right text-secondary"></i>
+                        </a>
+
+                        <hr>
+
+                        <a href="submit-claim.html"
+                           class="d-flex align-items-center justify-content-between text-decoration-none py-2">
+                            <span class="info-heading">
+                                <i class="bi bi-file-earmark-plus me-2 text-primary"></i>
+                                Submit a Claim
+                            </span>
+                            <i class="bi bi-chevron-right text-secondary"></i>
+                        </a>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a href="dashboard.html" class="btn-secondary-custom">
+                <i class="bi bi-arrow-left"></i>
+                Back to Dashboard
+            </a>
+        </div>
+
+    </main>
+
+    <footer>
+        MotorSure Motor Insurance Claim Fraud Flagging System
+        <br>
+        Academic project demonstration · Sample data only
+    </footer>
+
+    <script>
+document.addEventListener("DOMContentLoaded", async function () {
+
+    const TOKEN_KEY = "motorsure_token";
+    const token = localStorage.getItem(TOKEN_KEY);
+
+    if (!token) {
+        window.location.href = "index.html";
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            "http://localhost:8080/api/users/me",
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem(TOKEN_KEY);
+            window.location.href = "index.html";
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error("Unable to load profile.");
+        }
+
+        const profile = await response.json();
+
+        const name = profile.fullName || "User";
+        const email = profile.email || "—";
+        const role = profile.role || "—";
+        const userId = profile.userId ?? "—";
+
+        document.getElementById("fullName").value = name;
+        document.getElementById("email").value = email;
+        document.getElementById("role").value = role;
+        document.getElementById("userId").value = userId;
+
+        document.getElementById("bannerName").textContent = name;
+        document.getElementById("bannerEmail").textContent = email;
+        document.getElementById("profileAvatar").textContent =
+            name.charAt(0).toUpperCase();
+
+    } catch (error) {
+        console.error("Profile loading error:", error);
+        alert("Unable to load profile. Please try again.");
+    }
+
+    document.getElementById("logoutButton")
+        .addEventListener("click", function () {
+
+            if (confirm("Are you sure you want to log out?")) {
+                localStorage.removeItem(TOKEN_KEY);
+                window.location.href = "index.html";
+            }
+        });
+
+});
+</script>
+
+</body>
+</html>

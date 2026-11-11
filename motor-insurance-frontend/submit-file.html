@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Claim | MotorSure</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            display: block;
+            padding: 0;
+            background: #f4f7fb;
+        }
+
+        .top-nav {
+            background: #102b46;
+            color: white;
+            padding: 17px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 19px;
+        }
+
+        .nav-brand .brand-mark {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            background: #246bfd;
+            border-radius: 10px;
+        }
+
+        .back-link {
+            color: #d4e2f1;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        .page-container {
+            width: min(960px, 100%);
+            margin: 38px auto;
+            padding: 0 20px;
+        }
+
+        .page-heading {
+            margin-bottom: 26px;
+        }
+
+        .page-heading h1 {
+            margin: 10px 0;
+            font-family: "Manrope", sans-serif;
+            font-size: 29px;
+            font-weight: 800;
+            color: #18283b;
+        }
+
+        .page-heading p {
+            color: #748195;
+            font-size: 14px;
+        }
+
+        .step-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #246bfd;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .form-card {
+            background: white;
+            border: 1px solid #e5ebf3;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(25, 47, 76, 0.04);
+        }
+
+        .card-section {
+            padding: 26px 30px;
+            border-bottom: 1px solid #edf1f6;
+        }
+
+        .card-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .section-icon {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            border-radius: 11px;
+            background: #e9f0ff;
+            color: #246bfd;
+            font-size: 18px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            color: #18283b;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .section-heading p {
+            margin: 4px 0 0;
+            color: #8793a4;
+            font-size: 12px;
+        }
+
+        .form-label {
+            color: #26374c;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 46px;
+            border-color: #e2e8f0;
+            border-radius: 9px;
+            font-size: 13px;
+            box-shadow: none;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #7da6ff;
+            box-shadow: 0 0 0 3px rgba(36, 107, 253, 0.08);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .field-help {
+            margin-top: 6px;
+            color: #8793a4;
+            font-size: 11px;
+        }
+
+        .info-banner {
+            display: flex;
+            gap: 12px;
+            padding: 15px;
+            border: 1px solid #dbe8ff;
+            border-radius: 10px;
+            background: #f1f6ff;
+            color: #31578e;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .info-banner i {
+            font-size: 19px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 22px 30px;
+            background: #fbfcfe;
+        }
+
+        .btn-primary-custom,
+        .btn-secondary-custom {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 10px 18px;
+            border-radius: 9px;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .btn-primary-custom {
+            border: 0;
+            background: #246bfd;
+            color: white;
+        }
+
+        .btn-primary-custom:hover {
+            background: #1559e8;
+            color: white;
+        }
+
+        .btn-primary-custom:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary-custom {
+            border: 1px solid #dfe6ef;
+            background: white;
+            color: #46566b;
+        }
+
+        .btn-secondary-custom:hover {
+            background: #f4f7fb;
+            color: #18283b;
+        }
+
+        .footer-note {
+            margin: 22px 0;
+            color: #8793a4;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        @media (max-width: 600px) {
+            .top-nav {
+                padding: 14px 18px;
+            }
+
+            .page-container {
+                margin: 25px auto;
+                padding: 0 12px;
+            }
+
+            .page-heading h1 {
+                font-size: 24px;
+            }
+
+            .card-section {
+                padding: 20px 17px;
+            }
+
+            .form-actions {
+                padding: 18px 17px;
+            }
+
+            .form-actions a,
+            .form-actions button {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="top-nav">
+    <a href="dashboard.html" class="nav-brand">
+        <span class="brand-mark">M</span>
+        MotorSure
+    </a>
+
+    <a href="dashboard.html" class="back-link">
+        <i class="bi bi-arrow-left"></i>
+        Back to Dashboard
+    </a>
+</nav>
+
+<main class="page-container">
+
+    <header class="page-heading">
+        <span class="step-label">
+            <i class="bi bi-file-earmark-plus"></i>
+            CLAIM SUBMISSION
+        </span>
+
+        <h1>Submit a Motor Claim</h1>
+
+        <p>
+            Provide accurate details about your incident
+            to begin the claim review process.
+        </p>
+    </header>
+
+    <form id="claim-form" class="form-card" novalidate>
+
+        <!-- POLICY INFORMATION -->
+        <section class="card-section">
+            <div class="section-heading">
+                <div class="section-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+
+                <div>
+                    <h2>Policy Information</h2>
+                    <p>Select the policy associated with this claim.</p>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label for="policyId" class="form-label">
+                        Select Policy <span class="text-danger">*</span>
+                    </label>
+
+                    <select
+                        class="form-select"
+                        id="policyId"
+                        name="policyId"
+                        required
+                        disabled>
+                        <option value="">Loading your policies...</option>
+                    </select>
+
+                    <div class="invalid-feedback">
+                        Please select a valid policy.
+                    </div>
+
+                    <div class="field-help" id="policyHelp">
+                        Loading policies linked to your account.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INCIDENT INFORMATION -->
+        <section class="card-section">
+            <div class="section-heading">
+                <div class="section-icon">
+                    <i class="bi bi-car-front"></i>
+                </div>
+
+                <div>
+                    <h2>Incident Information</h2>
+                    <p>Tell us what happened to your vehicle.</p>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="claimType" class="form-label">
+                        Claim Type <span class="text-danger">*</span>
+                    </label>
+
+                    <select class="form-select"
+                            id="claimType"
+                            name="claimType"
+                            required>
+                        <option value="">Select claim type</option>
+                        <option value="ACCIDENT">Accident</option>
+                        <option value="THEFT">Theft</option>
+                        <option value="FIRE">Fire</option>
+                        <option value="NATURAL_CALAMITY">Natural Calamity</option>
+                    </select>
+
+                    <div class="invalid-feedback">
+                        Select a claim type.
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="incidentDate" class="form-label">
+                        Incident Date <span class="text-danger">*</span>
+                    </label>
+
+                    <input type="date"
+                           class="form-control"
+                           id="incidentDate"
+                           name="incidentDate"
+                           required>
+
+                    <div class="invalid-feedback">
+                        Select a valid incident date.
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="claimAmount" class="form-label">
+                        Claim Amount (₹) <span class="text-danger">*</span>
+                    </label>
+
+                    <input type="number"
+                           class="form-control"
+                           id="claimAmount"
+                           name="claimAmount"
+                           placeholder="e.g. 25000"
+                           min="0.01"
+                           max="9999999999.99"
+                           step="0.01"
+                           required>
+
+                    <div class="invalid-feedback">
+                        Enter a claim amount greater than zero.
+                    </div>
+
+                    <div class="field-help">
+                        Enter the estimated amount in Indian rupees.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DESCRIPTION -->
+        <section class="card-section">
+            <div class="section-heading">
+                <div class="section-icon">
+                    <i class="bi bi-card-text"></i>
+                </div>
+
+                <div>
+                    <h2>Incident Description</h2>
+                    <p>Provide a clear and factual description.</p>
+                </div>
+            </div>
+
+            <div>
+                <label for="description" class="form-label">
+                    What happened? <span class="text-danger">*</span>
+                </label>
+
+                <textarea
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    placeholder="Describe the incident, vehicle damage, and relevant details..."
+                    minlength="10"
+                    maxlength="2000"
+                    required></textarea>
+
+                <div class="invalid-feedback">
+                    Enter at least 10 characters describing the incident.
+                </div>
+
+                <div class="field-help">
+                    <span id="character-count">0</span>/2000 characters
+                </div>
+            </div>
+        </section>
+
+        <!-- NOTICE AND MESSAGE -->
+        <section class="card-section">
+            <div class="info-banner">
+                <i class="bi bi-info-circle"></i>
+
+                <div>
+                    <strong>Before submitting</strong>
+                    <div>
+                        Ensure the information is accurate. Your claim will be
+                        reviewed before a final decision is made. Fraud risk
+                        indicators are not proof of fraud by themselves.
+                    </div>
+                </div>
+            </div>
+
+            <div id="form-message"
+                 class="alert d-none mt-3 mb-0"
+                 role="status"
+                 aria-live="polite"></div>
+        </section>
+
+        <!-- ACTIONS -->
+        <div class="form-actions">
+            <a href="dashboard.html" class="btn-secondary-custom">
+                Cancel
+            </a>
+
+            <button type="submit"
+                    id="submitButton"
+                    class="btn-primary-custom"
+                    disabled>
+                Submit Claim <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+
+    </form>
+
+    <footer class="footer-note">
+        © 2026 MotorSure · Motor Insurance Claim Portal
+    </footer>
+</main>
+
+<script>
+    const API_BASE_URL = "http://localhost:8080/api";
+
+    const claimForm = document.getElementById("claim-form");
+    const policySelect = document.getElementById("policyId");
+    const policyHelp = document.getElementById("policyHelp");
+    const incidentDateInput = document.getElementById("incidentDate");
+    const descriptionInput = document.getElementById("description");
+    const characterCount = document.getElementById("character-count");
+    const formMessage = document.getElementById("form-message");
+    const submitButton = document.getElementById("submitButton");
+
+    let myPolicies = [];
+    let policiesLoaded = false;
+    let isSubmitting = false;
+
+    function getToken() {
+        return localStorage.getItem("motorsure_token");
+    }
+
+    function localDateString(date) {
+        return [
+            date.getFullYear(),
+            String(date.getMonth() + 1).padStart(2, "0"),
+            String(date.getDate()).padStart(2, "0")
+        ].join("-");
+    }
+
+    const today = localDateString(new Date());
+    incidentDateInput.max = today;
+
+    function showMessage(message, type) {
+        formMessage.className = `alert alert-${type} mt-3 mb-0`;
+        formMessage.textContent = message;
+    }
+
+    function hideMessage() {
+        formMessage.className = "alert d-none mt-3 mb-0";
+        formMessage.textContent = "";
+    }
+
+    function setSubmitting(submitting) {
+        isSubmitting = submitting;
+        submitButton.disabled = submitting || !policiesLoaded;
+
+        submitButton.innerHTML = submitting
+            ? '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Submitting...'
+            : 'Submit Claim <i class="bi bi-arrow-right"></i>';
+    }
+
+    async function loadMyPolicies() {
+        const token = getToken();
+
+        if (!token) {
+            window.location.href = "index.html";
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/policies/my`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Accept": "application/json"
+                }
+            });
+
+            if (response.status === 401 || response.status === 403) {
+                localStorage.removeItem("motorsure_token");
+                window.location.href = "index.html";
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(`Unable to load policies (HTTP ${response.status}).`);
+            }
+
+            const data = await response.json();
+
+            if (!Array.isArray(data)) {
+                throw new Error("Unexpected response from the policies API.");
+            }
+
+            myPolicies = data;
+
+            // Only approved and currently valid policies are eligible for claims.
+            const eligiblePolicies = myPolicies.filter(policy =>
+                policy.status === "ACTIVE" &&
+                policy.startDate &&
+                policy.endDate &&
+                policy.startDate <= today &&
+                policy.endDate >= today
+            );
+
+            policySelect.innerHTML =
+                '<option value="">Select your policy</option>';
+
+            eligiblePolicies.forEach(policy => {
+                const option = document.createElement("option");
+                option.value = policy.policyId;
+
+                option.textContent =
+                    `${policy.policyNumber} — ${policy.vehicleType} — ${policy.policyType}`;
+
+                policySelect.appendChild(option);
+            });
+
+            if (eligiblePolicies.length === 0) {
+                policySelect.innerHTML =
+                    '<option value="">No currently valid policies found</option>';
+
+                policySelect.disabled = true;
+                policyHelp.textContent =
+                    "A valid policy is required to submit a claim.";
+
+                showMessage(
+                    "You do not have a currently valid policy available for claim submission.",
+                    "warning"
+                );
+
+                return;
+            }
+
+            policySelect.disabled = false;
+            policiesLoaded = true;
+            submitButton.disabled = false;
+
+            policyHelp.textContent =
+                `${eligiblePolicies.length} valid policy/policies available.`;
+
+            hideMessage();
+
+            console.log("Policies loaded:", eligiblePolicies);
+
+        } catch (error) {
+            console.error("Policy loading failed:", error);
+
+            policySelect.innerHTML =
+                '<option value="">Unable to load policies</option>';
+
+            policySelect.disabled = true;
+            policiesLoaded = false;
+            submitButton.disabled = true;
+
+            policyHelp.textContent = "Please reload the page or log in again.";
+
+            showMessage(error.message, "danger");
+        }
+    }
+
+    descriptionInput.addEventListener("input", function () {
+        characterCount.textContent = descriptionInput.value.length;
+    });
+
+    claimForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        if (isSubmitting) return;
+
+        hideMessage();
+        claimForm.classList.add("was-validated");
+
+        if (!claimForm.checkValidity()) {
+            showMessage(
+                "Please correct the highlighted fields before continuing.",
+                "warning"
+            );
+
+            claimForm.querySelector(":invalid")?.focus();
+            return;
+        }
+
+        if (!policiesLoaded) {
+            showMessage(
+                "Your policies have not loaded. Please reload the page and try again.",
+                "warning"
+            );
+            return;
+        }
+
+        const policyId = Number(policySelect.value);
+
+        const selectedPolicy = myPolicies.find(policy =>
+            Number(policy.policyId) === policyId
+        );
+
+       if (!selectedPolicy || selectedPolicy.status !== "ACTIVE") {
+    showMessage(
+        "Only your active approved policies can be used to submit a claim.",
+        "warning"
+    );
+    return;
+}
+        const incidentDate = incidentDateInput.value;
+
+        if (incidentDate > today) {
+            showMessage("Incident date cannot be in the future.", "warning");
+            return;
+        }
+
+        if (
+            incidentDate < selectedPolicy.startDate ||
+            incidentDate > selectedPolicy.endDate
+        ) {
+            showMessage(
+                "The incident date must fall within the selected policy period.",
+                "warning"
+            );
+            return;
+        }
+
+        const claimAmount = Number(
+            document.getElementById("claimAmount").value
+        );
+
+        if (!Number.isFinite(claimAmount) || claimAmount <= 0) {
+            showMessage("Claim amount must be greater than zero.", "warning");
+            return;
+        }
+
+        const description = descriptionInput.value.trim();
+
+        if (description.length < 10) {
+            showMessage(
+                "Please provide at least 10 characters describing the incident.",
+                "warning"
+            );
+            return;
+        }
+
+        const claimData = {
+            policyId: policyId,
+            claimType: document.getElementById("claimType").value,
+            incidentDate: incidentDate,
+            claimAmount: claimAmount,
+            description: description
+        };
+
+        const token = getToken();
+
+        if (!token) {
+            window.location.href = "index.html";
+            return;
+        }
+
+        setSubmitting(true);
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/claims`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(claimData)
+            });
+
+            if (response.status === 401 || response.status === 403) {
+                throw new Error(
+                    "Your session is invalid or you are not authorized to submit this claim."
+                );
+            }
+
+            const responseText = await response.text();
+
+            if (!response.ok) {
+                throw new Error(
+                    responseText ||
+                    `Claim submission failed (HTTP ${response.status}).`
+                );
+            }
+
+            showMessage(
+                "Claim submitted successfully! Redirecting to My Claims...",
+                "success"
+            );
+
+            claimForm.reset();
+            claimForm.classList.remove("was-validated");
+            characterCount.textContent = "0";
+
+            setTimeout(() => {
+                window.location.href = "my-claims.html";
+            }, 1200);
+
+        } catch (error) {
+            console.error("Claim submission failed:", error);
+
+            showMessage(
+                error.message ||
+                "Unable to submit your claim. Please try again.",
+                "danger"
+            );
+
+        } finally {
+            setSubmitting(false);
+        }
+    });
+
+    loadMyPolicies();
+</script>
+
+</body>
+</html>

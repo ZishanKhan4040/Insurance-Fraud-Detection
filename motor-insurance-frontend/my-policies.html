@@ -1,0 +1,1142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Policies | MotorSure</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #14213d;
+            --blue: #3157d5;
+            --muted: #738096;
+            --border: #e5eaf2;
+            --bg: #f4f7fb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: #26344a;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+        }
+
+        .brand {
+            color: var(--navy);
+            font-size: 23px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .brand i {
+            color: var(--blue);
+        }
+
+        .page-container {
+            max-width: 1200px;
+            margin: 32px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            color: var(--navy);
+            font-weight: 800;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .btn-primary-custom,
+        .btn-secondary-custom {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 9px;
+            padding: 11px 16px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .btn-primary-custom {
+            background: var(--blue);
+            color: #fff;
+            border: 0;
+        }
+
+        .btn-primary-custom:hover {
+            background: #2445b7;
+            color: #fff;
+        }
+
+        .btn-secondary-custom {
+            background: #fff;
+            color: #34425b;
+            border: 1px solid #dce3ed;
+        }
+
+        .summary-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            height: 100%;
+            box-shadow: 0 4px 16px rgba(25, 43, 75, .025);
+        }
+
+        .summary-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 11px;
+            background: #edf1ff;
+            color: var(--blue);
+            font-size: 20px;
+        }
+
+        .summary-number {
+            color: var(--navy);
+            font-size: 27px;
+            font-weight: 800;
+            margin-top: 13px;
+        }
+
+        .summary-label {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .panel {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(25, 43, 75, .025);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 22px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            color: var(--navy);
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            padding: 24px;
+        }
+
+        .policy-card {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fff;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .policy-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(25, 43, 75, .07);
+        }
+
+        .policy-card-top {
+            padding: 20px;
+            background: linear-gradient(135deg, #172747, #2b477d);
+            color: #fff;
+        }
+
+        .vehicle-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, .13);
+            border-radius: 12px;
+            font-size: 25px;
+        }
+
+        .policy-number {
+            font-size: 12px;
+            color: #d5def1;
+        }
+
+        .policy-number strong {
+            color: #fff;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .policy-name {
+            font-size: 19px;
+            font-weight: 800;
+            margin-top: 15px;
+        }
+
+        .policy-type {
+            color: #d5def1;
+            font-size: 13px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 20px;
+            padding: 6px 10px;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .status-active {
+            background: #dcf7e9;
+            color: #167348;
+        }
+
+        .status-expired {
+            background: #ffe5e7;
+            color: #b52b35;
+        }
+
+        .status-upcoming {
+            background: #fff1d7;
+            color: #925b00;
+        }
+
+        .policy-card-body {
+            padding: 20px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 12px;
+        }
+
+        .detail-label {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: var(--navy);
+            font-size: 14px;
+            font-weight: 750;
+            overflow-wrap: anywhere;
+        }
+
+        .policy-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 15px 20px;
+            border-top: 1px solid var(--border);
+            background: #fcfdff;
+        }
+
+        .text-link {
+            color: var(--blue);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .text-link:hover {
+            text-decoration: underline;
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 220px;
+        }
+
+        .search-box i {
+            position: absolute;
+            top: 13px;
+            left: 13px;
+            color: var(--muted);
+        }
+
+        .search-box input {
+            padding-left: 38px;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 43px;
+            border-color: #dce3ed;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(49, 87, 213, .1);
+        }
+
+        .notice {
+            padding: 13px 16px;
+            background: #eef2ff;
+            color: #344b91;
+            border: 1px solid #d7e1ff;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .status-pending { background: #fff1d7; color: #925b00; }
+        .status-rejected { background: #ffe5e7; color: #b52b35; }
+        .application-panel {
+            background: #fff; border: 1px solid var(--border);
+            border-radius: 15px; padding: 22px 24px;
+            box-shadow: 0 4px 16px rgba(25, 43, 75, .025);
+        }
+
+        .empty-state {
+            display: none;
+            padding: 45px 20px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .empty-state i {
+            font-size: 35px;
+        }
+
+        footer {
+            padding: 25px 12px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        @media (max-width: 767px) {
+            .page-container {
+                margin-top: 22px;
+                padding: 0 12px;
+            }
+
+            .policy-grid {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+
+            .panel-header {
+                padding: 17px;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .header-actions a {
+                flex: 1;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="topbar">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+            <a href="dashboard.html" class="brand">
+                <i class="bi bi-shield-check"></i> MotorSure
+            </a>
+
+            <div class="d-flex flex-wrap gap-2 header-actions">
+                <a href="dashboard.html" class="btn-secondary-custom">
+                    <i class="bi bi-grid"></i> Dashboard
+                </a>
+
+                <a href="submit-file.html" class="btn-primary-custom">
+                    <i class="bi bi-plus-lg"></i> Submit Claim
+                </a>
+
+                <button type="button" id="logout-button"
+                        class="btn-secondary-custom">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-container">
+
+        <!-- Heading -->
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+            <div>
+                <div class="subtitle mb-2">Claimant Portal / My Policies</div>
+                <h1 class="page-title h2 mb-2">My Policies</h1>
+                <p class="subtitle mb-0">
+                    View your vehicle insurance details and policy validity.
+                </p>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2">
+                <a href="#policyApplication" class="btn-primary-custom">
+                    <i class="bi bi-plus-circle"></i> Apply for a Policy
+                </a>
+                <a href="submit-file.html" class="btn-secondary-custom">
+                    <i class="bi bi-file-earmark-plus"></i> Submit a Claim
+                </a>
+            </div>
+        </div>
+
+        <section class="application-panel mb-4" id="policyApplication">
+            <h2 class="panel-title mb-2">Apply for a New Policy</h2>
+            <p class="subtitle mb-3">Submit your vehicle and insurance type for ADMIN review. Your policy becomes usable only after approval.</p>
+            <div id="application-message" class="mb-3" role="status" aria-live="polite"></div>
+            <form id="policyApplicationForm">
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <label for="vehicleType" class="form-label fw-semibold">Vehicle Type</label>
+                        <select id="vehicleType" class="form-select" required>
+                            <option value="">Select vehicle type</option>
+                            <option value="CAR">Car</option>
+                            <option value="MOTORCYCLE">Motorcycle</option>
+                            <option value="SCOOTER">Scooter</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="policyType" class="form-label fw-semibold">Insurance Type</label>
+                        <select id="policyType" class="form-select" required>
+                            <option value="">Select insurance type</option>
+                            <option value="THIRD_PARTY">Third Party</option>
+                            <option value="COMPREHENSIVE">Comprehensive</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+    <label for="durationYears" class="form-label fw-semibold">
+        Policy Duration
+    </label>
+    <select id="durationYears" class="form-select" required>
+        <option value="">Select duration</option>
+        <option value="1">1 Year</option>
+        <option value="2">2 Years</option>
+    </select>
+</div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" id="applyPolicyButton" class="btn-primary-custom w-100">Apply</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Summary Cards -->
+        <div class="row g-3 mb-4">
+
+            <div class="col-6 col-lg-3">
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <div class="summary-number" id="totalPolicies">0</div>
+                    <div class="summary-label">Total Policies</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+                    <div class="summary-number" id="activePolicies">0</div>
+                    <div class="summary-label">Active Policies</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="bi bi-calendar-event"></i>
+                    </div>
+                    <div class="summary-number" id="expiringPolicies">0</div>
+                    <div class="summary-label">Expiring / Expired</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="bi bi-car-front"></i>
+                    </div>
+                    <div class="summary-number" id="vehicleCount">0</div>
+                    <div class="summary-label">Insured Vehicles</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- API Status Message -->
+        <div class="notice mb-4" id="api-message" role="status" aria-live="polite">
+            <i class="bi bi-arrow-repeat me-2"></i>
+            Loading your policies...
+        </div>
+
+        <!-- Policy List -->
+        <section class="panel">
+
+            <div class="panel-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <div class="panel-title">Insurance Policies</div>
+                    <div class="subtitle mt-1">
+                        Search by policy number, vehicle type or policy type.
+                    </div>
+                </div>
+
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="policySearch"
+                           class="form-control"
+                           placeholder="Search policies..."
+                           aria-label="Search policies">
+                </div>
+            </div>
+
+            <div class="policy-grid" id="policyGrid"></div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <i class="bi bi-search"></i>
+                <h5 class="fw-bold mt-3" id="empty-title">No policies found</h5>
+                <p class="subtitle mb-0" id="empty-description">
+                    Try searching with another policy number or vehicle type.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- Policy Reminder -->
+        <section class="panel mt-4">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <i class="bi bi-lightbulb me-2 text-primary"></i>
+                    Important Information
+                </div>
+            </div>
+
+            <div class="p-4">
+                <div class="d-flex gap-3 mb-3">
+                    <i class="bi bi-calendar-check text-primary fs-5"></i>
+                    <div>
+                        <strong class="d-block mb-1">Check policy validity</strong>
+                        <div class="subtitle">
+                            Verify that your policy was valid on the date of the incident.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3 mb-3">
+                    <i class="bi bi-file-earmark-text text-primary fs-5"></i>
+                    <div>
+                        <strong class="d-block mb-1">Keep documents ready</strong>
+                        <div class="subtitle">
+                            Keep your policy documents, registration certificate
+                            and relevant incident evidence available when submitting a claim.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3">
+                    <i class="bi bi-shield-exclamation text-primary fs-5"></i>
+                    <div>
+                        <strong class="d-block mb-1">Risk score is not a fraud verdict</strong>
+                        <div class="subtitle">
+                            A fraud risk score is an indicator for review, not proof
+                            that a claim is fraudulent.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mt-4">
+            <a href="dashboard.html" class="btn-secondary-custom">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+
+            <a href="submit-file.html" class="btn-primary-custom">
+                <i class="bi bi-plus-circle"></i> Submit a Claim
+            </a>
+        </div>
+
+    </main>
+
+    <footer>
+        MotorSure Motor Insurance Claim Fraud Flagging System
+        <br>
+        Academic project demonstration
+    </footer>
+
+    <script>
+        "use strict";
+
+        const API_BASE = "http://localhost:8080";
+        const TOKEN_KEY = "motorsure_token";
+
+        const policyGrid = document.getElementById("policyGrid");
+        const policySearch = document.getElementById("policySearch");
+        const emptyState = document.getElementById("emptyState");
+        const apiMessage = document.getElementById("api-message");
+
+        let allPolicies = [];
+
+        // Redirect to login if there is no token
+        function getToken() {
+            const token = localStorage.getItem(TOKEN_KEY);
+
+            if (!token) {
+                window.location.href = "index.html";
+                return null;
+            }
+
+            return token;
+        }
+
+        // Logout
+        document.getElementById("logout-button")
+            .addEventListener("click", function () {
+                if (confirm("Do you want to log out?")) {
+                    localStorage.removeItem(TOKEN_KEY);
+                    window.location.href = "index.html";
+                }
+            });
+
+        // Format a LocalDate such as 2026-12-31
+        function formatDate(dateValue) {
+            if (!dateValue) {
+                return "—";
+            }
+
+            const parts = dateValue.split("-");
+
+            if (parts.length !== 3) {
+                return dateValue;
+            }
+
+            return new Date(
+                Number(parts[0]),
+                Number(parts[1]) - 1,
+                Number(parts[2])
+            ).toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            });
+        }
+
+        // Normalize enum text for display
+        function formatLabel(value) {
+            if (!value) {
+                return "—";
+            }
+
+            return String(value)
+                .replaceAll("_", " ")
+                .toLowerCase()
+                .replace(/\b\w/g, character => character.toUpperCase());
+        }
+
+        // Parse date-only strings as local dates
+        function parseDate(dateValue) {
+            if (!dateValue) {
+                return null;
+            }
+
+            const parts = dateValue.split("-");
+
+            if (parts.length !== 3) {
+                return null;
+            }
+
+            const date = new Date(
+                Number(parts[0]),
+                Number(parts[1]) - 1,
+                Number(parts[2])
+            );
+
+            return Number.isNaN(date.getTime()) ? null : date;
+        }
+
+        // Derive display status using dates and backend status
+        function getPolicyStatus(policy) {
+            const applicationStatus = String(policy.status || "").toUpperCase();
+            if (applicationStatus === "PENDING" || applicationStatus === "REJECTED") {
+                return applicationStatus;
+            }
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const startDate = parseDate(policy.startDate);
+            const endDate = parseDate(policy.endDate);
+
+            if (startDate && startDate > today) {
+                return "UPCOMING";
+            }
+
+            if (!endDate || endDate < today) {
+                return "EXPIRED";
+            }
+
+            return "ACTIVE";
+        }
+
+        function getStatusClass(status) {
+            if (status === "ACTIVE") {
+                return "status-active";
+            }
+
+            if (status === "UPCOMING") {
+                return "status-upcoming";
+            }
+            if (status === "PENDING") {
+                return "status-pending";
+            }
+            if (status === "REJECTED") {
+                return "status-rejected";
+            }
+
+            return "status-expired";
+        }
+
+        function getStatusIcon(status) {
+            if (status === "ACTIVE") {
+                return "bi-check-circle-fill";
+            }
+
+            if (status === "UPCOMING" || status === "PENDING") {
+                return "bi-clock-fill";
+            }
+
+            return "bi-exclamation-circle-fill";
+        }
+
+        function getVehicleIcon(vehicleType) {
+            const type = (vehicleType || "").toUpperCase();
+
+            if (type === "CAR") {
+                return "bi-car-front-fill";
+            }
+
+            if (type === "MOTORCYCLE" || type === "SCOOTER") {
+                return "bi-bicycle";
+            }
+
+            return "bi-shield-check";
+        }
+
+        // Create a detail field safely
+        function createDetail(label, value) {
+            const container = document.createElement("div");
+
+            const labelElement = document.createElement("div");
+            labelElement.className = "detail-label";
+            labelElement.textContent = label;
+
+            const valueElement = document.createElement("div");
+            valueElement.className = "detail-value";
+            valueElement.textContent = value ?? "—";
+
+            container.append(labelElement, valueElement);
+
+            return container;
+        }
+
+        // Create one policy card from API data
+        function createPolicyCard(policy) {
+            const status = getPolicyStatus(policy);
+
+            const card = document.createElement("article");
+            card.className = "policy-card";
+
+            card.dataset.policy = (policy.policyNumber || "").toLowerCase();
+            card.dataset.vehicle = (policy.vehicleType || "").toLowerCase();
+            card.dataset.type = (policy.policyType || "").toLowerCase();
+            card.dataset.status = status.toLowerCase();
+
+            const top = document.createElement("div");
+            top.className = "policy-card-top";
+
+            const topRow = document.createElement("div");
+            topRow.className =
+                "d-flex justify-content-between align-items-start gap-3";
+
+            const vehicleIcon = document.createElement("div");
+            vehicleIcon.className = "vehicle-icon";
+
+            const icon = document.createElement("i");
+            icon.className = "bi " + getVehicleIcon(policy.vehicleType);
+            vehicleIcon.appendChild(icon);
+
+            const statusPill = document.createElement("span");
+            statusPill.className =
+                "status-pill " + getStatusClass(status);
+
+            const statusIcon = document.createElement("i");
+            statusIcon.className = "bi " + getStatusIcon(status);
+
+            statusPill.append(statusIcon, document.createTextNode(
+                formatLabel(status)
+            ));
+
+            topRow.append(vehicleIcon, statusPill);
+
+            const policyName = document.createElement("div");
+            policyName.className = "policy-name";
+            policyName.textContent = formatLabel(policy.vehicleType);
+
+            const policyType = document.createElement("div");
+            policyType.className = "policy-type";
+            policyType.textContent = formatLabel(policy.policyType);
+
+            const numberWrapper = document.createElement("div");
+            numberWrapper.className = "policy-number mt-3";
+            numberWrapper.appendChild(document.createTextNode("Policy Number"));
+
+            const lineBreak = document.createElement("br");
+
+            const number = document.createElement("strong");
+            number.textContent = policy.policyNumber || "—";
+
+            numberWrapper.append(lineBreak, number);
+
+            top.append(topRow, policyName, policyType, numberWrapper);
+
+            const body = document.createElement("div");
+            body.className = "policy-card-body";
+
+            const details = document.createElement("div");
+            details.className = "detail-grid";
+
+            details.append(
+    createDetail("Vehicle Type", formatLabel(policy.vehicleType)),
+    createDetail("Policy Type", formatLabel(policy.policyType)),
+    createDetail("Policy Duration",
+        policy.durationYears
+            ? policy.durationYears + " Year(s)"
+            : "—"
+    ),
+    createDetail("Sum Insured",
+        policy.sumInsured != null
+            ? "₹" + Number(policy.sumInsured).toLocaleString("en-IN")
+            : "—"
+    ),
+    createDetail("Premium Amount",
+        policy.premiumAmount != null
+            ? "₹" + Number(policy.premiumAmount).toLocaleString("en-IN")
+            : "—"
+    ),
+    createDetail("Start Date", formatDate(policy.startDate)),
+    createDetail("Expiry Date", formatDate(policy.endDate)),
+    createDetail("Policy ID", policy.policyId ?? "—"),
+    createDetail("Current Status", formatLabel(status))
+);
+
+            body.appendChild(details);
+
+            const footer = document.createElement("div");
+            footer.className = "policy-card-footer";
+
+            const footerText = document.createElement("span");
+            footerText.className = "subtitle";
+            footerText.textContent =
+                status === "ACTIVE"
+                    ? "Policy currently valid"
+                    : status === "UPCOMING"
+                        ? "Policy starts in the future"
+                        : status === "PENDING"
+                            ? "Awaiting ADMIN approval"
+                            : status === "REJECTED"
+                                ? "Application rejected"
+                                : "Policy has expired";
+
+            const claimsLink = document.createElement("a");
+            claimsLink.href = "my-claims.html";
+            claimsLink.className = "text-link";
+            claimsLink.textContent = "View Claims ";
+
+            const arrow = document.createElement("i");
+            arrow.className = "bi bi-arrow-right";
+            claimsLink.appendChild(arrow);
+
+            footer.append(footerText, claimsLink);
+
+            card.append(top, body, footer);
+
+            return card;
+        }
+
+        // Update summary cards using the complete API response
+        function updateSummary(policies) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const active = policies.filter(
+                policy => getPolicyStatus(policy) === "ACTIVE"
+            ).length;
+
+            // Includes policies expired or expiring within 30 days
+            const expiringOrExpired = policies.filter(policy => {
+                const status = getPolicyStatus(policy);
+
+                if (status === "EXPIRED") {
+                    return true;
+                }
+
+                if (status !== "ACTIVE") {
+                    return false;
+                }
+
+                const endDate = parseDate(policy.endDate);
+
+                if (!endDate) {
+                    return false;
+                }
+
+                const daysRemaining =
+                    (endDate.getTime() - today.getTime()) /
+                    (1000 * 60 * 60 * 24);
+
+                return daysRemaining <= 30;
+            }).length;
+
+            // Vehicle registration numbers are not returned by the current API.
+            // Count distinct insured vehicle types as a provisional metric.
+            const vehicleTypes = new Set(
+                policies
+                    .map(policy => policy.vehicleType)
+                    .filter(Boolean)
+            );
+
+            document.getElementById("totalPolicies").textContent =
+                policies.length;
+
+            document.getElementById("activePolicies").textContent =
+                active;
+
+            document.getElementById("expiringPolicies").textContent =
+                expiringOrExpired;
+
+            document.getElementById("vehicleCount").textContent =
+                vehicleTypes.size;
+        }
+
+        // Search across policy number, vehicle type and policy type
+        function filterPolicies() {
+            const query = policySearch.value.trim().toLowerCase();
+
+            const filteredPolicies = allPolicies.filter(policy => {
+                return [
+                    policy.policyNumber,
+                    policy.vehicleType,
+                    policy.policyType,
+                    policy.status
+                ].some(value =>
+                    String(value || "").toLowerCase().includes(query)
+                );
+            });
+
+            renderPolicies(filteredPolicies, false);
+        }
+
+        // Render the policy cards
+        function renderPolicies(policies, updateCounts = true) {
+            policyGrid.replaceChildren();
+
+            if (updateCounts) {
+                updateSummary(allPolicies);
+            }
+
+            if (policies.length === 0) {
+                emptyState.style.display = "block";
+
+                const isSearching = policySearch.value.trim().length > 0;
+
+                document.getElementById("empty-title").textContent =
+                    isSearching ? "No policies found" : "No policies available";
+
+                document.getElementById("empty-description").textContent =
+                    isSearching
+                        ? "Try another policy number, vehicle type or policy type."
+                        : "No policies are associated with your account yet.";
+
+                return;
+            }
+
+            emptyState.style.display = "none";
+
+            policies.forEach(policy => {
+                policyGrid.appendChild(createPolicyCard(policy));
+            });
+        }
+
+        // Fetch policies for the authenticated claimant
+        async function loadMyPolicies() {
+            const token = getToken();
+
+            if (!token) {
+                return;
+            }
+
+            apiMessage.innerHTML =
+                '<i class="bi bi-arrow-repeat me-2"></i> Loading your policies...';
+
+            try {
+                const response = await fetch(
+                    `${API_BASE}/api/policies/my`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Authorization": "Bearer " + token,
+                            "Accept": "application/json"
+                        }
+                    }
+                );
+
+                if (response.status === 401 || response.status === 403) {
+                    localStorage.removeItem(TOKEN_KEY);
+                    window.location.href = "index.html";
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error("HTTP error: " + response.status);
+                }
+
+                const data = await response.json();
+
+                if (!Array.isArray(data)) {
+                    throw new Error("Unexpected policy API response.");
+                }
+
+                allPolicies = data;
+
+                renderPolicies(allPolicies);
+
+                apiMessage.innerHTML =
+                    '<i class="bi bi-check-circle-fill me-2"></i>' +
+                    `Successfully loaded ${allPolicies.length} policy record(s) from your account.`;
+
+                console.log("My policies loaded:", allPolicies);
+
+            } catch (error) {
+                console.error("Failed to load policies:", error);
+
+                allPolicies = [];
+                policyGrid.replaceChildren();
+
+                document.getElementById("totalPolicies").textContent = "—";
+                document.getElementById("activePolicies").textContent = "—";
+                document.getElementById("expiringPolicies").textContent = "—";
+                document.getElementById("vehicleCount").textContent = "—";
+
+                emptyState.style.display = "block";
+                document.getElementById("empty-title").textContent =
+                    "Unable to load policies";
+                document.getElementById("empty-description").textContent =
+                    "Check that the backend is running and try refreshing the page.";
+
+                apiMessage.textContent =
+                    "Could not load your policies. Please check your connection and refresh.";
+            }
+        }
+
+        document.getElementById("policyApplicationForm")
+            .addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const token = getToken();
+                if (!token) return;
+
+                const message = document.getElementById("application-message");
+                const button = document.getElementById("applyPolicyButton");
+                const vehicleType = document.getElementById("vehicleType").value;
+                const policyType = document.getElementById("policyType").value;
+                const durationYears = document.getElementById("durationYears").value;
+
+                button.disabled = true;
+                button.textContent = "Submitting...";
+
+                try {
+                    const params = new URLSearchParams({
+    vehicleType,
+    policyType,
+    durationYears
+});
+                    const response = await fetch(
+                        `${API_BASE}/api/policies/apply?${params.toString()}`,
+                        {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + token,
+                                "Accept": "application/json"
+                            }
+                        }
+                    );
+
+                    const responseText = await response.text();
+                    if (!response.ok) {
+                        throw new Error(responseText || "Application submission failed.");
+                    }
+
+                    message.className = "alert alert-success py-2";
+                    message.textContent = "Application submitted. It is now pending ADMIN approval.";
+                    document.getElementById("policyApplicationForm").reset();
+                    await loadMyPolicies();
+
+                } catch (error) {
+                    message.className = "alert alert-danger py-2";
+                    message.textContent = error.message || "Could not submit application.";
+                } finally {
+                    button.disabled = false;
+                    button.textContent = "Apply";
+                }
+            });
+
+        policySearch.addEventListener("input", filterPolicies);
+
+        loadMyPolicies();
+    </script>
+
+</body>
+</html>
